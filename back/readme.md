@@ -9,4 +9,4 @@ Típicament:
  -  dockers per aixecar entorns de prova..
  -  ...
 
-NO HA DE CONTENIR EL PHP de l'aplicació
+NO HA DE CONTENIR EL PHP de l'aplicació, ja que aquesta carpeta no ha de ser accessible des de l'exterior.
