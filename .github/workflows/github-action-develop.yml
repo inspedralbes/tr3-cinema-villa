@@ -34,7 +34,7 @@ jobs:
         uses: burnett01/rsync-deployments@7.0.0
         with:
           switches: -avzr --delete
-          working-directory: cine-app/dist/
+          path: nuxt-app/dist/
           remote_path: ${{ secrets.REMOTE_TARGET }}nuxt
           remote_host: ${{ secrets.REMOTE_HOST }}
           remote_user: ${{ secrets.REMOTE_USER }}
