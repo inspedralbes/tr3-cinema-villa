@@ -35,11 +35,9 @@ services:
       - db-data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: laravel
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
+      MYSQL_DATABASE: cinemaVilla
     ports:
-      - "3307:3306"
+      - "3306:3306"
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
