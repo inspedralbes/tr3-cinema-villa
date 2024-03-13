@@ -20,7 +20,7 @@ jobs:
           cd ${{ github.workspace }}/front/cine-app/
           npm install
           npm run build
-          npm run start
+          npm start
 
       - name: scp a produccio
         run: |
