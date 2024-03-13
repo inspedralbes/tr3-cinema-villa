@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - develop
+
+  pull_request:
+    branches:
+      - develop
 jobs:
   Pujar-a-produccio-amb-SCP:
     runs-on: ubuntu-latest
