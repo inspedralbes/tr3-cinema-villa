@@ -14,5 +14,6 @@ El projecte s'ha de poder desplegar en mode desenvolupament simplement fent dock
  * Nom del projecte: cinemaVilla
  * Adreça del gestor de tasques: https://tree.taiga.io/project/julsluks-tr3-cinemavilla-julie/backlog 
  * Adreça del prototip gràfic del projecte (Penpot, figma, moqups...)
- * URL de producció (quan la tingueu)
+ * URL de preproducció: http://pre-tr3-cinemavilla.a22betvilver.daw.inspedralbes.cat/
+ * URL de producció: http://tr3.cinemavilla.a22betvilver.daw.inspedralbes.cat/ 
  * Estat: Començant.
