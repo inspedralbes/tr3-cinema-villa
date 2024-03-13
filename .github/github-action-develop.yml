@@ -26,5 +26,5 @@ jobs:
           echo "${{ secrets.KEY_SECRET }}" > ~/prod_key.pem
           chmod 600 ~/prod_key.pem
           cd ${{ github.workspace }}/front/cine-app/
-          scp -r -o stricthostkeychecking=no -o UserKnownHostsFile=/dev/null -i "~/prod_key.pem" ./nuxt/dist/* ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:/home/a22betvilver/web/pre-tr3-cinemavilla.a22betvilver.daw.inspedralbes.cat/public_html/
+          scp -r -o stricthostkeychecking=no -o UserKnownHostsFile=/dev/null -i "~/prod_key.pem" ./.nuxt/dist/* ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:/home/a22betvilver/web/pre-tr3-cinemavilla.a22betvilver.daw.inspedralbes.cat/public_html/
       - run: echo "🍏 This job's status is ${{ job.status }}."
