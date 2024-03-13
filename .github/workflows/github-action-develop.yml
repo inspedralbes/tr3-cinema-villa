@@ -1,44 +1,63 @@
-name: Preparant per preproducció
-
-run-name: ${{ github.actor }} està pujant l'aplicació a PRE-PROD  🚀
+name: Preparant per producció
+run-name: ${{ github.actor }} està pujant l'aplicació a PROD 🚀
 
 on:
   push:
     branches:
-      - develop
+      - 'develop'
 
   pull_request:
     branches:
-      - develop
-
+      - 'develop'
+      
 jobs:
-  Deploy:
+  Pujar-a-produccio-amb-SCP:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Obtenint el codi del respositori
-        uses: actions/checkout@v4
+      
+      - uses: actions/checkout@v4
+      
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
 
-      - name: Configurar Laravel
-        run: |
-          cd ${{ github.workspace }}/back/laravel/
-          cp .env.example .env
-          composer install
-          php artisan migrate --force
-          php artisan config:cache
-          php artisan route:cache
-          php artisan optimize
+      - name: Install npm dependencies for Nuxt.js
+        working-directory: ./front/cine-app
+        run: npm install
+      
+      - name: Run build task for Nuxt.js
+        working-directory: ./front/cine-app
+        run: npm run build --if-present
 
-      - name: Crear Dist Nuxt
-        run: |
-          cd ${{ github.workspace }}/front/cine-app/
-          npm install
-          npm run build
+      - name: Pujant Nuxt.js
+        uses: burnett01/rsync-deployments@7.0.0
+        with:
+          switches: -avzr --delete
+          path: cine-app/dist/
+          remote_path: ${{ secrets.REMOTE_TARGET }}nuxt
+          remote_host: ${{ secrets.REMOTE_HOST }}
+          remote_user: ${{ secrets.REMOTE_USER }}
+          remote_key: ${{ secrets.SSH_PRIVATE_KEY }}  
 
-      - name: scp a produccio
-        run: |
-          echo "${{ secrets.KEY_SECRET }}" > ~/prod_key.pem
-          chmod 600 ~/prod_key.pem
-          cd ${{ github.workspace }}/front/cine-app/
-          scp -r -o stricthostkeychecking=no -o UserKnownHostsFile=/dev/null -i "~/prod_key.pem" ./.nuxt/dist/* ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:/home/a22betvilver/web/pre-tr3-cinemavilla.a22betvilver.daw.inspedralbes.cat/public_html/
+      - name: Pujant Laravel  
+        uses: burnett01/rsync-deployments@7.0.0
+        with:
+          switches: -avzr 
+          path: laravel/
+          remote_path: ${{ secrets.REMOTE_TARGET }}laravel
+          remote_host: ${{ secrets.REMOTE_HOST }}
+          remote_user: ${{ secrets.REMOTE_USER }}
+          remote_key: ${{ secrets.SSH_PRIVATE_KEY }} 
+
+      - name: Npm install i composer install a prod
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          command_timeout: 30m
+          script: |
+            cd ${{ secrets.REMOTE_TARGET }}nuxt && npm install && cd .. && cd ./laravel && composer install
+
       - run: echo "🍏 This job's status is ${{ job.status }}."
