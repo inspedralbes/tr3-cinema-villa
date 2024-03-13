@@ -1,5 +1,7 @@
 name: Preparant per preproducció
+
 run-name: ${{ github.actor }} està pujant l'aplicació a PRE-PROD  🚀
+
 on:
   push:
     branches:
@@ -8,9 +10,11 @@ on:
   pull_request:
     branches:
       - develop
+
 jobs:
-  Pujar-a-produccio-amb-SCP:
+  Deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Obtenint el codi del respositori
         uses: actions/checkout@v4
@@ -20,9 +24,10 @@ jobs:
           cd ${{ github.workspace }}/back/laravel/
           cp .env.example .env
           composer install
-          php artisan key:generate
+          php artisan migrate --force
           php artisan config:cache
-          php artisan migrate:fresh --seed
+          php artisan route:cache
+          php artisan optimize
 
       - name: Crear Dist Nuxt
         run: |
