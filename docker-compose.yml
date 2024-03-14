@@ -11,8 +11,7 @@ services:
     volumes:
       - ./back/laravel:/var/www
     command: >
-      bash -c "composer update configs:
-      # try first composer update and composer install
+      bash -c "composer install
       && cp .env.example .env
       && php artisan key:generate
       && php artisan migrate
@@ -58,3 +57,7 @@ services:
 
 volumes:
   db-data:
+
+
+# docker-compose exec laravel bash -c "composer install && cp .env.example .env && php artisan key:generate && php artisan migrate"
+# && php artisan serve --host=0.0.0.0 --port=8000"
