@@ -11,7 +11,8 @@ services:
     volumes:
       - ./back/laravel:/var/www
     command: >
-      bash -c "composer install
+      bash -c "composer update configs:
+      # try first composer update and composer install
       && cp .env.example .env
       && php artisan key:generate
       && php artisan migrate
