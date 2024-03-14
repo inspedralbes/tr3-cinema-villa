@@ -1,11 +1,11 @@
 <template>
     <div>
-        <h2>Home Page, cinemaVilla</h2>
+        <Landing />
     </div>
 </template>
 
 <script setup>
-
+    import Landing from '~/layouts/landing.vue';
 </script>
 
 <style scoped>
