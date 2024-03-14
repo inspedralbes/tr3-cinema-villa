@@ -20,7 +20,14 @@ class MoviesController extends Controller
      */
     public function create(Request $request)
     {
-        $fildsets = $request->all();
+        $fildsets = $request->validate([
+            'image' => 'required|unique:movies',
+            'title' => 'required|unique:movies',
+            'director' => 'required',
+            'sinopsis' => 'required',
+            'duration' => 'required',
+            'classification' => 'required'
+        ]);
 
         $movie = new Movies();
 
@@ -32,9 +39,15 @@ class MoviesController extends Controller
         $movie["duration"] = $fildsets["duration"];
         $movie["premiere"] = $fildsets["premiere"];
         $movie["genre"] = $fildsets["genre"];
-        $movie["classification"] = $fildsets[""];
+        $movie["classification"] = $fildsets["classification"];
 
-        Movies::create($request->all());
+        if ($movie->save()) {
+            // Movie saved successfully
+            return response()->json(['message' => 'Movie created successfully'], 201);
+        } else {
+            // Failed to save the movie
+            return response()->json(['message' => 'Failed to create the movie'], 500);
+        }
     }
 
     /**
