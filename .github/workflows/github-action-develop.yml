@@ -1,5 +1,5 @@
-name: Preparant per producció
-run-name: ${{ github.actor }} està pujant l'aplicació a PROD 🚀
+name: Preparant per pre-producció
+run-name: ${{ github.actor }} està pujant l'aplicació a PRE-PROD 🚀
 
 on:
   push:
@@ -50,7 +50,7 @@ jobs:
           remote_user: ${{ secrets.REMOTE_USER }}
           remote_key: ${{ secrets.KEY_SECRET }} 
 
-      - name: Npm install i composer install a prod
+      - name: Npm install i composer install a pre-prod
         uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{ secrets.REMOTE_HOST }}
