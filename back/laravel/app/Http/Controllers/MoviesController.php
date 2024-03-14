@@ -18,9 +18,23 @@ class MoviesController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $fildsets = $request->all();
+
+        $movie = new Movies();
+
+        $movie["image"] = $fildsets["image"];
+        $movie["title"] = $fildsets["title"];
+        $movie["director"] = $fildsets["director"];
+        $movie["actors"] = $fildsets["actors"];
+        $movie["sinopsis"] = $fildsets["sinopsis"];
+        $movie["duration"] = $fildsets["duration"];
+        $movie["premiere"] = $fildsets["premiere"];
+        $movie["genre"] = $fildsets["genre"];
+        $movie["classification"] = $fildsets[""];
+
+        Movies::create($request->all());
     }
 
     /**
