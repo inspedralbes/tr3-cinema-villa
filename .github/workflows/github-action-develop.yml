@@ -58,6 +58,6 @@ jobs:
           key: ${{ secrets.KEY_SECRET }}
           command_timeout: 30m
           script: |
-            cd ${{ secrets.REMOTE_TARGET }}nuxt && npm install && cd .. && cd ./laravel && composer install
+            cd ${{ secrets.REMOTE_TARGET }}/nuxt && npm install && cd .. && cd ./laravel && composer install
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
