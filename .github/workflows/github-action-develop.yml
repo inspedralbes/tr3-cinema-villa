@@ -40,6 +40,10 @@ jobs:
           remote_user: ${{ secrets.REMOTE_USER }}
           remote_key: ${{ secrets.KEY_SECRET }}  
 
+      - name: Install composer dependencies for Laravel
+        working-directory: ./back/laravel
+        run: composer install
+
       - name: Pujant Laravel  
         uses: burnett01/rsync-deployments@7.0.0
         with:
@@ -49,15 +53,5 @@ jobs:
           remote_host: ${{ secrets.REMOTE_HOST }}
           remote_user: ${{ secrets.REMOTE_USER }}
           remote_key: ${{ secrets.KEY_SECRET }} 
-
-      - name: Npm install i composer install a pre-prod
-        uses: appleboy/ssh-action@v0.1.10
-        with:
-          host: ${{ secrets.REMOTE_HOST }}
-          username: ${{ secrets.REMOTE_USER }}
-          key: ${{ secrets.KEY_SECRET }}
-          command_timeout: 30m
-          script: |
-            cd ${{ secrets.REMOTE_TARGET }}/nuxt && npm install && cd .. && cd ./laravel && composer install
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
