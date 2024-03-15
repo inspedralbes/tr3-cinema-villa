@@ -13,14 +13,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('sessions', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_session');
             $table->date('day');
             $table->time('hour');
             $table->unsignedBigInteger('movie_id');
-            $table->foreign('movie_id')->references('id')->on('movies')->onDelete('cascade');
+            $table->foreign('movie_id')->references('id_movie')->on('movies')->onDelete('cascade');
             $table->integer('total_tickets');
             $table->integer('tickets_sold');
-            $table->timestamps();
         });
 
         DB::table('sessions')->insert([
@@ -33,7 +32,7 @@ return new class extends Migration
 
         DB::table('sessions')->insert([
             'day' => '2024-04-16', 
-            'hour' => '18:00:00', 
+            'hour' => '16:00:00', 
             'movie_id' => '6', 
             'total_tickets' => 120, 
             'tickets_sold' => 0, 
@@ -41,7 +40,7 @@ return new class extends Migration
 
         DB::table('sessions')->insert([
             'day' => '2024-04-17', 
-            'hour' => '18:00:00', 
+            'hour' => '20:00:00', 
             'movie_id' => '8', 
             'total_tickets' => 120, 
             'tickets_sold' => 0, 
@@ -65,7 +64,7 @@ return new class extends Migration
 
         DB::table('sessions')->insert([
             'day' => '2024-04-20', 
-            'hour' => '18:00:00', 
+            'hour' => '20:00:00', 
             'movie_id' => '17', 
             'total_tickets' => 120, 
             'tickets_sold' => 0, 
@@ -73,7 +72,7 @@ return new class extends Migration
 
         DB::table('sessions')->insert([
             'day' => '2024-04-21', 
-            'hour' => '18:00:00', 
+            'hour' => '16:00:00', 
             'movie_id' => '14', 
             'total_tickets' => 120, 
             'tickets_sold' => 0, 
@@ -81,15 +80,15 @@ return new class extends Migration
 
         DB::table('sessions')->insert([
             'day' => '2024-04-22', 
-            'hour' => '18:00:00', 
-            'movie_id' => '0', 
+            'hour' => '16:00:00', 
+            'movie_id' => '5', 
             'total_tickets' => 120, 
             'tickets_sold' => 0, 
         ]);
 
         DB::table('sessions')->insert([
             'day' => '2024-04-23', 
-            'hour' => '18:00:00', 
+            'hour' => '20:00:00', 
             'movie_id' => '16', 
             'total_tickets' => 120, 
             'tickets_sold' => 0, 

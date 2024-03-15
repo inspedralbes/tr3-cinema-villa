@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Sessions extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'day',
+        'hour',
+        'movie_id',
+        'total_tickets',
+        'tickets_sold'
+    ];
+
 }
