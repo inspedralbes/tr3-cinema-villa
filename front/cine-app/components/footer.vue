@@ -12,8 +12,8 @@
           <!-- Horario -->
           <div>
             <h2 class="text-2xl font-semibold mb-4">Horario</h2>
-            <p class="mb-2">Lunes a Viernes: 10:00 AM - 10:00 PM</p>
-            <p>Sábado y Domingo: 9:00 AM - 11:00 PM</p>
+            <p class="mb-2">Lunes a Viernes: 10:00 AM - 11:00 PM</p>
+            <p>Sábado y Domingo: 12:00 AM - 11:00 PM</p>
           </div>
           <!-- Redes Sociales -->
           <div>
@@ -40,7 +40,7 @@
       </div>
       <!-- Derechos de autor -->
       <div class="text-center mt-8">
-        <p>&copy; 2024 CineVue. Todos los derechos reservados.</p>
+        <p>&copy; 2024 CineVilla. Todos los derechos reservados.</p>
       </div>
     </footer>
   </template>

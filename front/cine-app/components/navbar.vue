@@ -2,7 +2,7 @@
     <nav class="bg-gray-800 py-4">
       <div class="container mx-auto flex justify-between items-center">
         <!-- Nombre del cine a la izquierda -->
-        <h1 class="text-white text-2xl font-semibold">CineVue</h1>
+        <h1 class="text-white text-2xl font-semibold">CineVilla</h1>
         
         <!-- Botón para toggle de menú en dispositivos móviles -->
         <button @click="toggleMenu" class="block lg:hidden text-white focus:outline-none">
@@ -14,7 +14,7 @@
         
         <!-- Secciones a la derecha -->
         <div :class="menuClasses">
-          <a href="#" class="text-white block mt-4 lg:inline-block lg:mt-0 mr-4">Cartelera</a>
+          <a href="/" class="text-white block mt-4 lg:inline-block lg:mt-0 mr-4">Cartelera</a>
           <a href="#" class="text-white block mt-4 lg:inline-block lg:mt-0 mr-4">Sesiones</a>
           <!-- Agrega más secciones según sea necesario -->
         </div>
