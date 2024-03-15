@@ -1,5 +1,11 @@
 <template>
   <HeaderLanding />
+  <div class="flex flex-wrap justify-center">
+    <div v-for="movie in movies" :key="movie.id" class="m-4 cursor-pointer" @click="verDetalle(movie.id)">
+      <img :src="movie.image" :alt="movie.title" class="mb-2">
+      <p class="text-center">{{ movie.title }}</p>
+    </div>
+  </div>
     
 </template>
 

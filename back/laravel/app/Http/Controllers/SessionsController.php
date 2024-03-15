@@ -35,10 +35,10 @@ class SessionsController extends Controller
         $session["movie_id"] = $fildsets["movie_id"];
 
         if ($session->save()) {
-            // Movie saved successfully
+            // Session saved successfully
             return response()->json(['message' => 'NEW Session created successfully'], 201);
         } else {
-            // Failed to save the movie
+            // Failed to save the session
             return response()->json(['message' => 'Failed to create the NEW Session'], 500);
         }
     }

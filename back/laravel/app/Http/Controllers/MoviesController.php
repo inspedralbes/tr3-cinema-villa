@@ -13,7 +13,7 @@ class MoviesController extends Controller
     public function index()
     {
         // Get all movies (id, title, image) from the database
-        $movies = Movies::all(['id', 'title', 'image']);
+        $movies = Movies::all(['id_movie', 'title', 'image']);
 
         return response()->json($movies);
     }
