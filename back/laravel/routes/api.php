@@ -20,6 +20,7 @@ Route::get('/movies', [MoviesController::class, 'index']);
 Route::post('/addMovie', [MoviesController::class,'create']);
 
 Route::get('/sessions', [SessionsController::class, 'index']);
+Route::post('/addSession', [SessionsController::class,'create']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

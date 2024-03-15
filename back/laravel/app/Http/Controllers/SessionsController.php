@@ -12,7 +12,7 @@ class SessionsController extends Controller
      */
     public function index()
     {
-        $sessions = Sessions::all(['id', 'day', 'hour', 'movie_id', 'total_tickets', 'tickets_sold']);
+        $sessions = Sessions::all();
 
         return response()->json($sessions);
     }
@@ -20,9 +20,27 @@ class SessionsController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $fildsets = $request->validate([
+            'day' => 'required|unique:sessions',
+            'hour' => 'required',
+            'movie_id'=> 'required',
+        ]);
+
+        $session = new Sessions();
+
+        $session["day"] = $fildsets["day"];
+        $session["hour"] = $fildsets["hour"];
+        $session["movie_id"] = $fildsets["movie_id"];
+
+        if ($session->save()) {
+            // Movie saved successfully
+            return response()->json(['message' => 'NEW Session created successfully'], 201);
+        } else {
+            // Failed to save the movie
+            return response()->json(['message' => 'Failed to create the NEW Session'], 500);
+        }
     }
 
     /**

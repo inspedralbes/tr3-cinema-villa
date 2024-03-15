@@ -18,8 +18,8 @@ return new class extends Migration
             $table->time('hour');
             $table->unsignedBigInteger('movie_id');
             $table->foreign('movie_id')->references('id_movie')->on('movies')->onDelete('cascade');
-            $table->integer('total_tickets');
-            $table->integer('tickets_sold');
+            $table->integer('total_tickets')->default(120);
+            $table->integer('tickets_sold')->default(0);
         });
 
         DB::table('sessions')->insert([
