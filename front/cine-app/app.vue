@@ -1,8 +1,8 @@
 <template>
   <div>
-    <Navbar />
+    <NuxtLayout name="navbar" />
     <NuxtPage :name="index" />    
-    <Footer />
+    <NuxtLayout name="footer" />
   </div>
 </template>
 
