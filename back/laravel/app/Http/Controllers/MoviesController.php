@@ -64,9 +64,18 @@ class MoviesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Movies $movies)
+    public function show(Request $request)
     {
-        //
+        // Find the movie by its id
+        $movie = Movies::where('id_movie', $request->id)->first();
+
+        if ($movie) {
+            // Movie found, return the movie data
+            return response()->json($movie);
+        } else {
+            // Movie not found
+            return response()->json(['message' => 'Movie not found'], 404);
+        }
     }
 
     /**

@@ -1,17 +1,3 @@
-<!-- <template>
-    <div>
-        <h2>About Page, cinemaVilla</h2>
-    </div>
-</template>
-
-<script setup>
-
-</script>
-
-<style scoped>
-
-</style> -->
-
 <template>
     <div class="container mx-auto py-8">
         <div class="max-w-md mx-auto bg-white rounded-lg overflow-hidden shadow-lg">
@@ -38,36 +24,44 @@
 </template>
 
 <script>
+import { getMovie } from '~/services/communicationManager.js';
+import { useAppStore } from '~/store';
+
 export default {
+    components: {
+
+    },
     data() {
+        const store = useAppStore();
+
         return {
-            movie: {}
+            movie: {},
         };
     },
-    async mounted() {
-        // Obtener el ID de la película de los parámetros de ruta
-        const id_movie = this.$route.params.id_movie;
+    methods: {
 
-        // Aquí puedes hacer una solicitud para obtener los detalles de la película
-        // Supongamos que tienes una función llamada getMovieDetails() que obtiene los detalles de la película por su ID
-        try {
-            const movieDetails = await this.getMovieDetails(id_movie);
-            this.movie = movieDetails;
-        } catch (error) {
-            console.error('Error al obtener detalles de la película:', error);
+    },
+    mounted() {
+        if (this.$route.params.id_movie) {
+            // Llamada a la API para obtener las películas
+            getMovie(this.$route.params.id_movie)
+                .then((response) => {
+                    this.movie = response;
+                    store.setMovie(response);
+                })
+                .catch((error) => {
+                    console.error(error);
+            });
+        } else {
+            console.error("El parámetro id_movie está indefinido");
         }
     },
-    methods: {
-        async getMovieDetails(id_movie) {
-            // Aquí iría tu lógica para obtener los detalles de la película, por ejemplo, una solicitud HTTP a una API
-            // Debes implementar esta función según tu estructura de datos y cómo obtienes los detalles de la película
-            // Por ejemplo:
-            // const response = await this.$axios.get(`/api/peliculas/${id_movie}`);
-            // return response.data;
-            // O si tienes los detalles de la película en un array o base de datos local:
-            // return movies.find(movie => movie.id === id_movie);
-            // Esto es solo un ejemplo de cómo podrías obtener los detalles de la película
-        }
+    created() {
+
+    },
+
+    computed: {
+
     }
 };
 </script>

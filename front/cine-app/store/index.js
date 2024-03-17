@@ -5,15 +5,19 @@ export const useAppStore = defineStore({
     state: () => {
         // Define tu estado aquí
         return {
-            movies: [],
+            all_movies: [],
+            movie: {},
         }
     },
     getters: {
         // Define tus getters aquí
     },
     actions: {
-        setMovies(movies) {
-            this.movies = movies
+        setAllMovies(movies) {
+            this.all_movies = movies
+        },
+        setMovie(movie) {
+            this.movie = movie
         }
     },
     // Define tus getters, mutations, acciones aquí

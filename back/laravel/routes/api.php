@@ -18,6 +18,7 @@ use App\Http\Controllers\SessionsController;
 
 Route::get('/movies', [MoviesController::class, 'index']);
 Route::post('/addMovie', [MoviesController::class,'create']);
+Route::get('/movie/{id}', [MoviesController::class, 'show']);
 
 Route::get('/sessions', [SessionsController::class, 'index']);
 Route::post('/addSession', [SessionsController::class,'create']);
