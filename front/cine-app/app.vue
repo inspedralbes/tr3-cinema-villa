@@ -1,7 +1,7 @@
 <template>
   <div>
     <NuxtLayout name="navbar" />
-    <NuxtPage :name="index" />    
+    <NuxtPage />    
     <NuxtLayout name="footer" />
   </div>
 </template>
