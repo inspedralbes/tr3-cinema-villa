@@ -2,15 +2,15 @@
     <HeaderMovie v-show="showMovie" :movie="movie" />
     <div v-show="showMovie" class="p-8 flex bg-blue-950">
         <img :src="movie.image" alt="Poster de la película" class="w-65 h-80">
-        <div class="bg-white rounded-lg m-7">
+        <div class="bg-gray-900 text-slate-50 rounded-lg m-7 p-3">
             <h1 class="text-2xl font-bold mb-4">{{ movie.title }}</h1>
             <div class="mb-4">
                 <p><strong>Director:</strong> {{ movie.director }}</p>
-                <p><strong>Actores:</strong>
+                <div><strong>Actores:</strong>
                     <ul>
                         <li v-for="actor in actors" :key="actor"> {{ actor }} </li>
                     </ul>
-                </p>
+                </div>
                 <p><strong>Género:</strong> {{ movie.genre }}</p>
                 <p><strong>Clasificación:</strong> {{ movie.classification }}</p>
             </div>
@@ -18,10 +18,10 @@
                 <p class="font-semibold">Sinopsis:</p>
                 <p>{{ movie.sinopsis }}</p>
             </div>
-            <div class="flex justify-between mb-4">
+            <!-- <div class="flex justify-between mb-4">
                 <p><strong>Duración:</strong> {{ movie.duration }}</p>
                 <p><strong>Fecha de Estreno:</strong> {{ movie.premiere }}</p>
-            </div>
+            </div> -->
         </div>
     </div>
     <div v-if="showMovie == false" class="flex items-center justify-center h-screen">
