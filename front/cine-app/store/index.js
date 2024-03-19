@@ -10,7 +10,12 @@ export const useAppStore = defineStore({
         }
     },
     getters: {
-        // Define tus getters aquí
+        getAllMovies() {
+            return this.all_movies
+        },
+        getMovie() {
+            return this.movie
+        }
     },
     actions: {
         setAllMovies(movies) {

@@ -1,5 +1,6 @@
 <template>
     <HeaderMovie v-show="showMovie" :movie="movie" />
+    <MoviesCarousel :movies="movies" />
     <div v-show="showMovie" class="p-8 flex bg-blue-950">
         <img :src="movie.image" alt="Poster de la película" class="w-65 h-80">
         <div class="bg-gray-900 text-slate-50 rounded-lg m-7 p-3">
@@ -27,10 +28,6 @@
     <div v-if="showMovie == false" class="flex items-center justify-center h-screen">
         <div class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12"></div>
     </div>
-
-
-
-    
 </template>
 
 <script>
@@ -45,6 +42,7 @@ export default {
 
 
         return {
+            movies: [],
             movie: {},
             actors: [],
             showMovie: false
@@ -61,6 +59,7 @@ export default {
                 this.movie = response;
                 store.setMovie(response);
                 this.actors = JSON.parse(response.actors);
+                this.movies = store.getAllMovies();
 
                 this.showMovie = true;
             })
