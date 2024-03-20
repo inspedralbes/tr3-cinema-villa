@@ -6,7 +6,9 @@ export const useAppStore = defineStore({
         // Define tu estado aquí
         return {
             all_movies: [],
+            all_sessions: [],
             movie: {},
+            session: {}
         }
     },
     actions: {
@@ -15,7 +17,12 @@ export const useAppStore = defineStore({
         },
         setMovie(movie) {
             this.movie = movie
+        },
+        setAllSessions(sessions) {
+            this.all_sessions = sessions
+        },
+        setSession(session) {
+            this.session = session
         }
-    },
-    // Define tus getters, mutations, acciones aquí
+    }
 })

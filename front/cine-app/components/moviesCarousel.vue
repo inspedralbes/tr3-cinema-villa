@@ -3,7 +3,7 @@
         <div class="flex space-x-4 bg-blue-950">
             <div v-for="(movie, index) in movies" :key="index" class="w-48 flex-shrink-0 bg-blue-950">
                 <nuxt-link :to="{ name: 'movies-id', params: { id: movie.id_movie } }">
-                    <div class="w-full bg-blue-950 rounded-lg shadow-md p-2">
+                    <div class="w-full bg-blue-950 rounded-lg p-2">
                         <img :src="movie.image" class="w-full h-auto rounded-lg bg-blue-950"
                             :alt="`Movie poster for ${movie.title}`">
                     </div>
