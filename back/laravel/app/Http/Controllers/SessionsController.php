@@ -54,9 +54,29 @@ class SessionsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Sessions $sessions)
+    public function show(Request $request)
     {
-        //
+        $session = Sessions::where('id_session', $request->id)->first();
+
+        if (!$session) {
+            return response()->json(['message' => 'Session not found'], 404);
+        } else {
+            return response()->json($session);
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function getByMovieId(Request $request)
+    {
+        $session = Sessions::where('movie_id', $request->id)->first();
+
+        if (!$session) {
+            return response()->json(['message' => 'Session not found'], 404);
+        } else {
+            return response()->json($session);
+        }
     }
 
     /**

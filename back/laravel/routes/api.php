@@ -22,6 +22,8 @@ Route::get('/movie/{id}', [MoviesController::class, 'show']);
 
 Route::get('/sessions', [SessionsController::class, 'index']);
 Route::post('/addSession', [SessionsController::class,'create']);
+Route::get('/session/{id}', [SessionsController::class, 'show']);
+Route::get('/movie_session/{id}', [SessionsController::class, 'getByMovieId']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
