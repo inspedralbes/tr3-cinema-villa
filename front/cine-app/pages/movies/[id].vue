@@ -1,6 +1,6 @@
 <template>
     <HeaderMovie v-show="showMovie" :movie="movie" />
-    <MoviesCarousel v-show="showMovie" :movies="movies" />
+    <MoviesCarousel class="p-4 pb-8" v-show="showMovie" :movies="movies" />
 
     <div v-show="showMovie" class="p-8 flex bg-blue-950">
         <img :src="movie.image" alt="Poster de la película" class="w-65 h-80">
