@@ -9,14 +9,6 @@ export const useAppStore = defineStore({
             movie: {},
         }
     },
-    getters: {
-        getAllMovies() {
-            return this.all_movies
-        },
-        getMovie() {
-            return this.movie
-        }
-    },
     actions: {
         setAllMovies(movies) {
             this.all_movies = movies

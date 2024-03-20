@@ -1,6 +1,7 @@
 <template>
     <HeaderMovie v-show="showMovie" :movie="movie" />
-    <MoviesCarousel :movies="movies" />
+    <MoviesCarousel v-show="showMovie" :movies="movies" />
+
     <div v-show="showMovie" class="p-8 flex bg-blue-950">
         <img :src="movie.image" alt="Poster de la película" class="w-65 h-80">
         <div class="bg-gray-900 text-slate-50 rounded-lg m-7 p-3">
@@ -31,7 +32,7 @@
 </template>
 
 <script>
-import { getMovie } from '~/services/communicationManager.js';
+import { getMovie, getAllMovies } from '~/services/communicationManager.js';
 import { useAppStore } from '~/store';
 
 export default {
@@ -39,8 +40,6 @@ export default {
 
     },
     data() {
-
-
         return {
             movies: [],
             movie: {},
@@ -53,19 +52,30 @@ export default {
     },
     mounted() {
         if (this.$route.params.id != undefined) {
+            // Obtener el store
+            const store = useAppStore();            
             // Llamada a la API para obtener las películas
-            const store = useAppStore();
             getMovie(this.$route.params.id).then((response) => {
+                // Guardar la película en el store
                 this.movie = response;
                 store.setMovie(response);
+                // Guardar los actores
                 this.actors = JSON.parse(response.actors);
-                this.movies = store.getAllMovies();
-
+                // Guardar todas las películas y si no buscarlas otra vez
+                this.movies = store.all_movies;
+                if (this.movies.length == 0) {
+                    getAllMovies().then((response) => {
+                        this.movies = response;
+                        store.setAllMovies(response);
+                    }).catch((error) => {
+                        console.error(error);
+                    });
+                } 
+                // Mostrar la película
                 this.showMovie = true;
-            })
-                .catch((error) => {
-                    console.error(error);
-                });
+            }).catch((error) => {
+                console.error(error);
+            });
         } else {
             console.error("El parámetro id no está definido");
         }
