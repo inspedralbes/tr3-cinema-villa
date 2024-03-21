@@ -32,20 +32,12 @@ export default {
         const store = useAppStore();
         // response: title, image, id.
         this.movies = response;
-        console.log(this.movies);
         store.setAllMovies(response);
         this.showMovies = true;
       })
       .catch((error) => {
         console.error(error);
       });
-  },
-  created() {
-
-  },
-
-  computed: {
-
   }
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
     <div class="flex-column text-center justify-center items-center bg-blue-950">
-        <h2 class="text-5xl font-bold text-white m-4">Próxima Sessión</h2>
+        <h2 class="text-5xl font-bold text-white m-4">Próxima Sesion</h2>
         <SessionCard :session="session" />
     </div>
 </template>
