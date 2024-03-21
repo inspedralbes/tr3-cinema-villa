@@ -8,7 +8,9 @@ export const useAppStore = defineStore({
             all_movies: [],
             all_sessions: [],
             movie: {},
-            session: {}
+            session: {},
+            id_movie: Number,
+            id_session: Number
         }
     },
     actions: {
@@ -18,11 +20,17 @@ export const useAppStore = defineStore({
         setMovie(movie) {
             this.movie = movie
         },
+        setMovieId(id) {
+            this.id_movie = id
+        },
         setAllSessions(sessions) {
             this.all_sessions = sessions
         },
         setSession(session) {
             this.session = session
+        },
+        setSessionId(id) {
+            this.id_session = id
         }
     }
 })

@@ -26,7 +26,9 @@
             </div> -->
         </div>
     </div>
-    
+
+    <SessionSection class="p-9 bg-blue-950" v-show="showMovie" :id_movie="this.$route.params.id" />
+
     <div v-if="showMovie == false" class="flex items-center justify-center h-screen">
         <div class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12"></div>
     </div>
@@ -37,9 +39,6 @@ import { getMovie, getAllMovies } from '~/services/communicationManager.js';
 import { useAppStore } from '~/store';
 
 export default {
-    components: {
-
-    },
     data() {
         return {
             movies: [],
@@ -60,8 +59,9 @@ export default {
                 // Guardar la película en el store
                 this.movie = response;
                 store.setMovie(response);
+                store.setMovieId(parseInt(response.id_movie));
                 // Guardar los actores
-                this.actors = JSON.parse(response.actors);
+                this.actors = JSON.parse(response.actors);                
                 // Guardar todas las películas y si no buscarlas otra vez
                 this.movies = store.all_movies;
                 if (this.movies.length == 0) {
@@ -80,13 +80,6 @@ export default {
         } else {
             console.error("El parámetro id no está definido");
         }
-    },
-    created() {
-
-    },
-
-    computed: {
-
     }
 };
 </script>
