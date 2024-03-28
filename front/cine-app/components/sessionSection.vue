@@ -1,11 +1,11 @@
 <template>
-    <div class="flex-column text-center justify-center items-center bg-blue-950">
-        <h2 class="text-5xl font-bold text-white m-4">Próxima Sesion</h2>
+    <div v-show="showSession" class="flex-column text-center justify-center items-center bg-blue-950">
+        <h2 class="text-5xl font-bold text-white p-8">Próxima Sesion</h2>
         <SessionCard :session="session" />
     </div>
-    <!-- <div class="bg-blue-950 p-4">
+    <div v-show="!showSession" class="bg-blue-950 p-4">
         <h3 class="text-4xl font-bold text-center text-white">Próximamente se añadirán sesiones para tu película favorita</h3>
-    </div> -->
+    </div>
 </template>
 
 <script>
@@ -19,7 +19,8 @@ export default {
     data() {
         return {
             session: {},
-            id_movieSession: Number
+            id_movieSession: Number,
+            showSession: false
         };
     },
     methods: {
@@ -35,6 +36,7 @@ export default {
                 this.id_movieSession = response.movie_id;
                 store.setSession(response);
                 store.setSessionId(parseInt(response.id_session));
+                this.showSession = true;
             }).catch((error) => {
                 console.error(error);
             });

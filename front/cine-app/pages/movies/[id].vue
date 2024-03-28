@@ -27,9 +27,9 @@
         </div>
     </div>
 
-    <SessionSection v-show="showMovie" class="p-9 bg-blue-950" :id_movie="this.$route.params.id" />
+    <SessionSection v-if="showMovie" class="p-9 bg-blue-950" :id_movie="this.$route.params.id" />
 
-    <div v-if="showMovie == false" class="flex items-center justify-center h-screen">
+    <div v-show="!showMovie" class="flex items-center justify-center h-screen">
         <div class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12"></div>
     </div>
 </template>
