@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bg-blue-950">
     <NuxtLayout name="navbar" />
     <NuxtPage />    
     <NuxtLayout name="footer" />

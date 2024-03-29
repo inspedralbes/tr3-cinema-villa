@@ -1,5 +1,5 @@
 <template>
-    <div v-show="showSession" class="flex-column text-center justify-center items-center bg-blue-950">
+    <div v-show="showSession" class="flex-column m-9 text-center justify-center items-center bg-blue-950">
         <h2 class="text-5xl font-bold text-white p-8">Próxima Sesion</h2>
         <SessionCard :session="session" />
     </div>
