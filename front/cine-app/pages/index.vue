@@ -26,18 +26,23 @@ export default {
     
   },
   mounted() {
+    const store = useAppStore();
+    this.movies = store.all_movies;
     // Llamada a la API para obtener las películas
-    getAllMovies()
-      .then((response) => {
-        const store = useAppStore();
-        // response: title, image, id.
-        this.movies = response;
-        store.setAllMovies(response);
-        this.showMovies = true;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    if (this.movies.length == 0) {
+      getAllMovies()
+        .then((response) => {        
+          // response: title, image, id.
+          this.movies = response;
+          store.setAllMovies(response);
+          this.showMovies = true;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } else {
+      this.showMovies = true;
+    }
   }
 };
 </script>
