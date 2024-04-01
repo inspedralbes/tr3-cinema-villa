@@ -21,10 +21,10 @@
                 <p>{{ movie.sinopsis }}</p>
             </div>            
         </div>
-        <div class="flex justify-between mb-2">
-            <p><strong>Duración:</strong> {{ movie.duration }}</p>
-            <p><strong>Fecha de Estreno:</strong> {{ movie.premiere }}</p>
-        </div> 
+        <div class="bg-gray-900 text-slate-50 rounded-lg m-4 p-2 shadow-md">
+            <p class="my-9 mx-2"><strong>Duración:</strong> {{ movie.duration }}</p>
+            <p class="my-9 mx-2"><strong>Fecha de Estreno:</strong> {{ movie.premiere }}</p>
+        </div>
     </div>
 
     <SessionSection v-if="showMovie" class="p-9 bg-blue-950" :id_movie="this.$route.params.id" />
