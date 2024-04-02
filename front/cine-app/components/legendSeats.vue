@@ -14,6 +14,10 @@
                 <Seat class="fill-red-500 absolute left-0 top-1/2 transform -translate-y-1/2"/>
                 Ocupado
             </h2>
+            <h2 class="text-base p-9 md:text-xl font-mono font-bold tracking-widest mb-2 md:m-0 mr-0 md:mr-4 relative">
+                <Seat class="fill-yellow-500 absolute left-0 top-1/2 transform -translate-y-1/2"/>
+                VIP
+            </h2>
         </div>
     </div>
 </template>

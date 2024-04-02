@@ -1,20 +1,23 @@
 <template>
-    <div v-show="showSession" class="flex flex-col items-center justify-center">
-        <img :src="movie.image" :alt="movie.title" class="w-full object-cover h-auto max-h-40 mb-4">
-        <h1 class="text-white text-6xl font-mono font-bold tracking-widest mb-6">{{ movie.title }}</h1>
-        <div class="flex flex-col items-center justify-center w-full md:m-7 text-slate-300">
-            <div class="flex flex-col md:flex-row justify-center items-center w-full md:w-5/6 md:mb-3">
-                <h2 class="text-lg md:text-xl font-mono font-bold tracking-widest mb-2 md:m-0 mr-0 md:mr-4">Duración: {{ movie.duration }}</h2>
-                <h2 class="text-lg md:text-xl font-mono font-bold tracking-widest mb-2 md:m-0 ml-0 md:ml-4">Fecha de Estreno: {{ movie.premiere }}</h2>
-            </div>
-            <div class="flex flex-col md:flex-row justify-center items-center w-full md:w-5/6 md:mb-3">
-                <h2 class="text-lg md:text-xl font-mono font-bold tracking-widest mb-2 md:m-0 mr-0 md:mr-4">Session: {{ session.day }}, {{ session.hour }}</h2>
+    <div v-if="showSession == true" >
+        <div class="flex flex-col items-center justify-center">
+            <img :src="movie.image" :alt="movie.title" class="w-full object-cover h-auto max-h-40 mb-4">
+            <h1 class="text-white text-6xl font-mono font-bold tracking-widest mb-6">{{ movie.title }}</h1>
+            <div class="flex flex-col items-center justify-center w-full md:m-7 text-slate-300">
+                <div class="flex flex-col md:flex-row justify-center items-center w-full md:w-5/6 md:mb-3">
+                    <h2 class="text-lg md:text-xl font-mono font-bold tracking-widest mb-2 md:m-0 mr-0 md:mr-4">Duración: {{ movie.duration }}</h2>
+                    <h2 class="text-lg md:text-xl font-mono font-bold tracking-widest mb-2 md:m-0 ml-0 md:ml-4">Fecha de Estreno: {{ movie.premiere }}</h2>
+                </div>
+                <div class="flex flex-col md:flex-row justify-center items-center w-full md:w-5/6 md:mb-3">
+                    <h2 class="text-lg md:text-xl font-mono font-bold tracking-widest mb-2 md:m-0 mr-0 md:mr-4">Session: {{ session.day }}, {{ session.hour }}</h2>
+                </div>
             </div>
         </div>
+
+        <SelectSeats />
+
     </div>
-
-    <SelectSeats v-show="showSession" :session="session"/>
-
+    
     <div v-if="showSession == false" class="flex items-center justify-center h-screen">
         <div class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12"></div>
     </div>
