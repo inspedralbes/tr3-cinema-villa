@@ -41,12 +41,12 @@ export default {
         getSession(store.id_session).then((response) => {
             this.session = response;
             store.setSession(response);
-            this.showSession = true;
             //Buscar la película
             store.setMovieId(this.session.movie_id);
             getMovie(store.id_movie).then((response) => {
                 this.movie = response;
                 store.setMovie(response);
+                this.showSession = true;
             }).catch((error) => {
                 console.error(error);
             });
