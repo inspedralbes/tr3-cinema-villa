@@ -16,7 +16,7 @@
                         <Seat   :id="`${row}-${n}-VIP`" 
                                 :class="n % 5 == 0 ? 'mr-8 my-1 ml-1' : 'mx-1 -my-1'"
                                 class="cursor-pointer fill-yellow-500"
-                                @click="handleSeatClick(`${row}-${n}`)"/>
+                                @click="handleSeatClick(`${row}-${n}-VIP`)"/>
                     </div>
                     <div v-else class="flex flex-row items-center justify-center text-2xl">
                         <Seat   :id="`${row}-${n}`" 
@@ -46,12 +46,10 @@ export default {
         },
         unselectedSeat(seat, seatID){
             seat.classList.remove('fill-green-300');
-            if (seatID) {
-                if (seatID[0] == 'F') {
-                    seat.classList.add('fill-yellow-500');
-                } else {
-                    seat.classList.add('fill-slate-300');
-                }
+            if (seatID[0] == 'F') {
+                seat.classList.add('fill-yellow-500');
+            } else {
+                seat.classList.add('fill-slate-300');
             }
         },
         handleSeatClick(seatId) {
