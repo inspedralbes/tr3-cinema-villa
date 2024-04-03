@@ -18,6 +18,8 @@ return new class extends Migration
             $table->time('hour');
             $table->unsignedBigInteger('movie_id');
             $table->foreign('movie_id')->references('id_movie')->on('movies')->onDelete('cascade');
+            $table->boolean('audienceDay')->default(false);
+            $table->decimal('priceBase', 10, 2)->default(6.00);
             $table->integer('total_tickets')->default(120);
             $table->integer('tickets_sold')->default(0);
         });
@@ -25,7 +27,9 @@ return new class extends Migration
         DB::table('sessions')->insert([
             'day' => '2024-04-15', 
             'hour' => '18:00:00', 
-            'movie_id' => '1', 
+            'movie_id' => '1',
+            'audienceDay' => true,
+            'priceBase' => 4.00,
             'total_tickets' => 120, 
             'tickets_sold' => 0, 
         ]);
@@ -33,7 +37,8 @@ return new class extends Migration
         DB::table('sessions')->insert([
             'day' => '2024-04-16', 
             'hour' => '16:00:00', 
-            'movie_id' => '6', 
+            'movie_id' => '6',
+            'priceBase' => 8.00,
             'total_tickets' => 120, 
             'tickets_sold' => 0, 
         ]);

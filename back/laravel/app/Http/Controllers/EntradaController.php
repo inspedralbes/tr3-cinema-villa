@@ -34,49 +34,85 @@ class EntradaController extends Controller
             'cliente.first_name' => 'required',
             'cliente.last_name' => 'required',
             'cliente.phone_number' => 'required',
-            'entradas' => 'required|array|min:1|max:10',
-            'entradas.*.price' => 'required',
-            'entradas.*.seat' => ['required', 'regex:/^[A-L]-[1-9]|10$/'],
+            'seats' => 'required|array|min:1|max:10',
+            'seats.*' => ['required', 'regex:/^[A-L]-[1-9]|10$/'],
         ]);
     
         if ($validator->fails()) {
             return response()->json(['message' => 'Estructura de JSON inválida', 'errors' => $validator->errors()], 400);
         }
     
+        if (!Sessions::where('id_session', $data['session_id'])->exists() ) {
+            return response()->json(['message' => 'La sesión no existe'], 404);
+        } else {
+            $session = Sessions::where('id_session', $data['session_id'])->first();
+
+            if ($session->day < date("Y-m-d") || $session->day == date("Y-m-d") && $session->hour < date("H:i:s")) {
+                return response()->json(['message' => 'La sesión ya ha pasado'], 400);
+            }
+        }
+
         // Extraer los datos del cliente y las entradas
         $session_id = $data['session_id'];
         $cliente = $data['cliente'];
-        $entradas = $data['entradas'];
+        $entradas = $data['seats'];
     
         $errorCount = 0;
         $seatsInUse = Entrada::where('session_id', $session_id)->pluck('seat')->toArray();
 
         if (count($seatsInUse) > 0) {
-            foreach ($entradas as $entradaData) {
-                if (in_array($entradaData['seat'], $seatsInUse)) {
+            for ($i = 0; $i < count($entradas); $i++) {
+                if (in_array($entradas[$i], $seatsInUse)) {
                     $errorCount++;
-                } else if (count(array_unique(array_column($entradas, 'seat'))) != count($entradas)) {
+                } else if (count(array_unique($entradas)) != count($entradas)) {
                     return response()->json(['message' => 'Los asientos deben ser diferentes'], 400);
                 }
             }
+            // foreach ($entradas as $entradaData) {
+            //     if (in_array($entradaData['seat'], $seatsInUse)) {
+            //         $errorCount++;
+            //     } else if (count(array_unique(array_column($entradas, 'seat'))) != count($entradas)) {
+            //         return response()->json(['message' => 'Los asientos deben ser diferentes'], 400);
+            //     }
+            // }
         }
 
         if ($errorCount == 0) {
-            foreach ($entradas as $entradaData) {
-                // Crear una instancia de entrada
+            // Crear las entradas
+            for ($i = 0; $i < count($entradas); $i++) {
+
                 $entrada = new Entrada();
-        
-                $entrada->session_id = $session_id;
-                $entrada->price = $entradaData['price'];
-                $entrada->seat = $entradaData['seat'];
+
+                $entrada->session_id = $session_id;                
+                $entrada->seat = $entradas[$i];
                 $entrada->email = $cliente['email'];
                 $entrada->first_name = $cliente['first_name'];
                 $entrada->last_name = $cliente['last_name'];
                 $entrada->phone_number = $cliente['phone_number'];
-        
-                // Guardar la entrada en la base de datos
+
+                if (str_contains($entrada[$i], 'VIP')) {
+                    $entrada->price = $session->priceBase + 2.0;
+                } else {
+                    $entrada->price = $session->priceBase;
+                }
+
                 $entrada->save();
             }
+            // foreach ($entradas as $entradaData) {
+            //     // Crear una instancia de entrada
+            //     $entrada = new Entrada();
+        
+            //     $entrada->session_id = $session_id;
+            //     $entrada->price = $entradaData['price'];
+            //     $entrada->seat = $entradaData['seat'];
+            //     $entrada->email = $cliente['email'];
+            //     $entrada->first_name = $cliente['first_name'];
+            //     $entrada->last_name = $cliente['last_name'];
+            //     $entrada->phone_number = $cliente['phone_number'];
+        
+            //     // Guardar la entrada en la base de datos
+            //     $entrada->save();
+            // }
         }
         
     
@@ -88,7 +124,6 @@ class EntradaController extends Controller
             return response()->json(['message' => 'Las ' . count($entradas) . ' entradas se crearon correctamente'], 201);
         }
     }    
-
 
     /**
      * Display the specified resource.
@@ -117,6 +152,9 @@ class EntradaController extends Controller
         }
     }
 
+    /**
+     * Validate the email of the user
+     */
     public function validateEmail(Request $request) {
         $data = $request->json()->all();
         $validator = Validator::make($data, [
@@ -133,7 +171,7 @@ class EntradaController extends Controller
         $entradas = Entrada::where('email', $email)
                         ->where('session_id', $session_id)
                         ->get();
-                        
+
         if (count($entradas) > 0) {
             return response()->json(['comprar' => 'False'], 200);
         } else {

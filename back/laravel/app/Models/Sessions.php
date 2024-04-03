@@ -13,6 +13,8 @@ class Sessions extends Model
         'day',
         'hour',
         'movie_id',
+        'audienceDay',
+        'priceBase',
         'total_tickets',
         'tickets_sold'
     ];

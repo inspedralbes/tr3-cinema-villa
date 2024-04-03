@@ -26,13 +26,32 @@ class SessionsController extends Controller
             'day' => 'required|unique:sessions',
             'hour' => 'required',
             'movie_id'=> 'required',
+            'audienceDay' => 'boolean',
+            'priceBase' => 'decimal',
         ]);
+        
+        if (Sessions::where('day', $fildsets["day"])->exists()) {
+            return response()->json(['message' => 'Session already exists'], 400);
+        } else if ($fildsets["day"] < date("Y-m-d")) {
+            return response()->json(['message' => 'Invalid date'], 400);
+        }
 
         $session = new Sessions();
 
         $session["day"] = $fildsets["day"];
         $session["hour"] = $fildsets["hour"];
         $session["movie_id"] = $fildsets["movie_id"];
+        
+        if ($fildsets["audienceDay"] && !$fildsets["priceBase"]) {
+            $session["audienceDay"] = $fildsets["audienceDay"];
+            $session["priceBase"] = 4.00;
+        } else if ($fildsets["priceBase"]) {
+            $session["priceBase"] = $fildsets["priceBase"];
+        } else if ($fildsets["audienceDay"] && $fildsets["priceBase"]) {
+            $session["audienceDay"] = $fildsets["audienceDay"];
+            $session["priceBase"] = $fildsets["priceBase"];
+        }
+        
 
         if ($session->save()) {
             // Session saved successfully

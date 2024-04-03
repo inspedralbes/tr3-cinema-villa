@@ -8,17 +8,14 @@ http://localhost:8000/api/entradas (POST)
         "last_name": "González",
         "phone_number": "123456789"
     },
-    "entradas": [
-        { "price": 10, "seat": "B-1" },
-        { "price": 10, "seat": "B-2" },
-        { "price": 10, "seat": "B-3" },
-        { "price": 10, "seat": "B-4" },
-        { "price": 10, "seat": "B-5" },
-        { "price": 10, "seat": "B-6" },
-        { "price": 10, "seat": "B-7" },
-        { "price": 10, "seat": "B-8" },
-        { "price": 10, "seat": "B-9" },
-        { "price": 10, "seat": "B-10" }
+    "seats": [
+        "A-1",
+        "A-2",
+        "A-3",
+        "A-4",
+        "A-5",
+        "A-6",
+        "A-7"
     ]
 }
 
