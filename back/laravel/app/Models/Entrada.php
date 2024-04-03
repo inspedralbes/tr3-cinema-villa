@@ -15,4 +15,6 @@ class Entrada extends Model
         'last_name',
         'phone_number',
     ];
+    
+    public $timestamps = false;
 }

@@ -15,8 +15,8 @@ return new class extends Migration
             // $table->integerIncrements('id_entrada');
             $table->unsignedBigInteger('session_id');
             $table->foreign('session_id')->references('id_session')->on('sessions')->onDelete('cascade');
-            $table->decimal('price', 10, 2);
             $table->string('seat');
+            $table->decimal('price', 10, 2);
             $table->string('email');
             $table->string('first_name');
             $table->string('last_name');

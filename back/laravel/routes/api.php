@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MoviesController;
 use App\Http\Controllers\SessionsController;
+use App\Http\Controllers\EntradaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,12 @@ Route::get('/sessions', [SessionsController::class, 'index']);
 Route::post('/addSession', [SessionsController::class,'create']);
 Route::get('/session/{id}', [SessionsController::class, 'show']);
 Route::get('/movie_session/{id}', [SessionsController::class, 'getByMovieId']);
+
+Route::get('/entradas', [EntradaController::class, 'index']);
+Route::post('/entradas', [EntradaController::class, 'create']);
+Route::get('/session/{id}/entradas', [EntradaController::class, 'show']); //session x entrada x
+Route::post('/entradas/validate', [EntradaController::class, 'validateEmail']);
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

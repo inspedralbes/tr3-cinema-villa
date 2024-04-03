@@ -7,7 +7,7 @@ Esquema mínim de carpetes pels projectes transversals
 Un cop comenceu heu de canviar aquesta explicació amb la corresponent al vostre projecte (utilitzant markdown)
 
 ## Docker & Docker compose
-El projecte s'ha de poder desplegar en mode desenvolupament simplement fent docker compose up
+El projecte s'ha de poder desplegar en mode desenvolupament simplement fent docker compose up.
 
 # Aquest fitxer ha de contenir com a mínim:
  * Nom dels integrants: Julie Villegas
@@ -16,4 +16,4 @@ El projecte s'ha de poder desplegar en mode desenvolupament simplement fent dock
  * Adreça del prototip gràfic del projecte (Penpot, figma, moqups...)
  * URL de preproducció: http://pre-tr3-cinemavilla.a22betvilver.daw.inspedralbes.cat/
  * URL de producció: http://tr3.cinemavilla.a22betvilver.daw.inspedralbes.cat/ 
- * Estat: Començant.
+ * Estat: Comprar Entradas.
