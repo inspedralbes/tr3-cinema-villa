@@ -15,7 +15,8 @@ http://localhost:8000/api/entradas (POST)
         "A-4",
         "A-5",
         "A-6",
-        "A-7"
+        "A-7",
+        "F-8-VIP"
     ]
 }
 

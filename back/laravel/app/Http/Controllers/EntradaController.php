@@ -45,7 +45,7 @@ class EntradaController extends Controller
         if (!Sessions::where('id_session', $data['session_id'])->exists() ) {
             return response()->json(['message' => 'La sesión no existe'], 404);
         } else {
-            $session = Sessions::where('id_session', $data['session_id'])->first();
+            $session = Sessions::find($data['session_id']);
 
             if ($session->day < date("Y-m-d") || $session->day == date("Y-m-d") && $session->hour < date("H:i:s")) {
                 return response()->json(['message' => 'La sesión ya ha pasado'], 400);
@@ -68,13 +68,6 @@ class EntradaController extends Controller
                     return response()->json(['message' => 'Los asientos deben ser diferentes'], 400);
                 }
             }
-            // foreach ($entradas as $entradaData) {
-            //     if (in_array($entradaData['seat'], $seatsInUse)) {
-            //         $errorCount++;
-            //     } else if (count(array_unique(array_column($entradas, 'seat'))) != count($entradas)) {
-            //         return response()->json(['message' => 'Los asientos deben ser diferentes'], 400);
-            //     }
-            // }
         }
 
         if ($errorCount == 0) {
@@ -90,29 +83,17 @@ class EntradaController extends Controller
                 $entrada->last_name = $cliente['last_name'];
                 $entrada->phone_number = $cliente['phone_number'];
 
-                if (str_contains($entrada[$i], 'VIP')) {
+                if (str_contains($entradas[$i], 'VIP')) {
                     $entrada->price = $session->priceBase + 2.0;
                 } else {
                     $entrada->price = $session->priceBase;
                 }
 
                 $entrada->save();
+
+                $session->tickets_sold += 1;
+                $session->update();
             }
-            // foreach ($entradas as $entradaData) {
-            //     // Crear una instancia de entrada
-            //     $entrada = new Entrada();
-        
-            //     $entrada->session_id = $session_id;
-            //     $entrada->price = $entradaData['price'];
-            //     $entrada->seat = $entradaData['seat'];
-            //     $entrada->email = $cliente['email'];
-            //     $entrada->first_name = $cliente['first_name'];
-            //     $entrada->last_name = $cliente['last_name'];
-            //     $entrada->phone_number = $cliente['phone_number'];
-        
-            //     // Guardar la entrada en la base de datos
-            //     $entrada->save();
-            // }
         }
         
     

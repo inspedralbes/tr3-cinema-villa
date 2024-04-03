@@ -19,4 +19,7 @@ class Sessions extends Model
         'tickets_sold'
     ];
 
+    protected $primaryKey = 'id_session';
+
+    public $timestamps = false;
 }
