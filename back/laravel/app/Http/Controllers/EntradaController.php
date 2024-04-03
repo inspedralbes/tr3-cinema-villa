@@ -109,7 +109,7 @@ class EntradaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function showWithIdSession($id)
     {
         if ($id) {
             $session = Sessions::where('id_session', $id)->first();
@@ -157,6 +157,33 @@ class EntradaController extends Controller
             return response()->json(['comprar' => 'False'], 200);
         } else {
             return response()->json(['comprar' => 'True'], 200);
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function showWithEmailIdSession(Request $request)
+    {
+        $entradas = Entrada::where('session_id', $request->id)
+                            ->where('email', $request->email)
+                            ->get();
+
+        if ($entradas->isEmpty()) {
+            return response()->json(['message' => 'Entrada no encontrada'], 404);
+        } else {
+            return response()->json($entradas);
+        }
+    }
+
+    public function showWithEmail(Request $request)
+    {
+        $entradas = Entrada::where('email', $request->email)->get();
+
+        if ($entradas->isEmpty()) {
+            return response()->json(['message' => 'Entrada no encontrada'], 404);
+        } else {
+            return response()->json($entradas);
         }
     }
 }

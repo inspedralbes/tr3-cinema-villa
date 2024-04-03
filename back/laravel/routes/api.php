@@ -28,9 +28,10 @@ Route::get('/movie_session/{id}', [SessionsController::class, 'getByMovieId']);
 
 Route::get('/entradas', [EntradaController::class, 'index']);
 Route::post('/entradas', [EntradaController::class, 'create']);
-Route::get('/session/{id}/entradas', [EntradaController::class, 'show']); //session x entrada x
+Route::get('/session/{id}/entradas', [EntradaController::class, 'showWithIdSession']); //session x entrada x
 Route::post('/entradas/validate', [EntradaController::class, 'validateEmail']);
-
+Route::post('/entradas/searchIdEmail', [EntradaController::class, 'showWithEmailIdSession']);
+Route::post('/entradas/searchEmail', [EntradaController::class, 'showWithEmail']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
