@@ -102,7 +102,7 @@ class EntradaController extends Controller
             return response()->json(['message' => 'Alguna(s) de las entradas no pudo ser creada, por lo cual no se ha hecho la compra', 'errors' => $errorCount], 500);
         } else {
             // Todas las entradas se crearon correctamente
-            return response()->json(['message' => 'Las ' . count($entradas) . ' entradas se crearon correctamente'], 201);
+            return response()->json(['message' => 'Las ' . count($entradas) . ' entradas se crearon correctamente'], 200);
         }
     }    
 
@@ -122,13 +122,12 @@ class EntradaController extends Controller
 
         $entradas = Entrada::where('session_id', $id)->get();
 
-        if (count($entradas) == 0) {
-            return response()->json(['message' => 'No hay entradas para la sesión con ID ' . $id], 404);
+        if ($entradas->isEmpty()) {
+            return response()->json(['message' => 'No hay entradas para la sesión con ID ' . $id], 200);
         } else {
             foreach ($entradas as $entrada) {
                 $seats[] = $entrada->seat;
             }
-
             return response()->json($seats);
         }
     }

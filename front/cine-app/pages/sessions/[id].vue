@@ -14,7 +14,7 @@
             </div>
         </div>
 
-        <SelectSeats />
+        <SelectSeats :ocuppiedSeats="this.ocuppiedSeats" />
 
     </div>
     
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { getSession, getMovie } from '~/services/communicationManager.js';
+import { getSession, getMovie, getOccupiedSeats } from '~/services/communicationManager.js';
 import { useAppStore } from '~/store';
 
 export default {
@@ -32,6 +32,7 @@ export default {
         return {
             session: {},
             movie: {},
+            ocuppiedSeats: [],
             showSession: false
         };
     },
@@ -48,7 +49,18 @@ export default {
             store.setMovieId(this.session.movie_id);
             getMovie(store.id_movie).then((response) => {
                 this.movie = response;
-                store.setMovie(response);
+                store.setMovie(response);                
+            }).catch((error) => {
+                console.error(error);
+            });
+            //Buscar los asientos ocupados
+            getOccupiedSeats(store.id_session).then((response) => {
+                if (response.message) {
+                    console.log(response.message);
+                } else {
+                    this.ocuppiedSeats = response;
+                    store.setOccupiedSeats(this.ocuppiedSeats);
+                }
                 this.showSession = true;
             }).catch((error) => {
                 console.error(error);

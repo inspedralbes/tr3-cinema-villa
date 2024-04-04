@@ -5,12 +5,11 @@
             <div class="flex items-center mr-9"> {{ row }} </div>
             <div class="flex flex-row">
                 <div v-for="n in 10" class="flex flex-row items-center justify-center">
-                    <div v-if="row == 'A'" class="flex flex-row items-center justify-center text-2xl">
-                        <div class="absolute transform -translate-y-9 mb-9" :class="n % 5 == 0 ? 'mr-8  ml-1' : 'mx-1'">{{ n }}</div>
+                    <div v-if="row == 'A'" class="absolute transform -translate-y-9 mb-9" :class="n % 5 == 0 ? 'mr-8  ml-1' : 'mx-1'">{{ n }}</div>
+                    <div v-if="this.ocuppiedSeats.includes(`${row}-${n}`) || this.ocuppiedSeats.includes(`${row}-${n}-VIP`)" class="flex flex-row items-center justify-center text-2xl">
                         <Seat   :id="`${row}-${n}`" 
                                 :class="n % 5 == 0 ? 'mr-8 my-1 ml-1' : 'mx-1 -my-1'"
-                                class="cursor-pointer fill-slate-300"
-                                @click="handleSeatClick(`${row}-${n}`)"/>
+                                class="cursor-not-allowed fill-red-500"/>
                     </div>
                     <div v-else-if="row == 'F'" class="flex flex-row items-center justify-center text-2xl">
                         <Seat   :id="`${row}-${n}-VIP`" 
@@ -31,8 +30,16 @@
 </template>
 
 <script>
+import { useAppStore } from '~/store';
+
 export default {
-    data() {
+    props: {
+        ocuppiedSeats: {
+            type: Array,
+            required: true
+        }
+    },
+    data() {        
         return {
             rows: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'],
             selectedSeats: []
@@ -53,6 +60,7 @@ export default {
             }
         },
         handleSeatClick(seatId) {
+            const store = useAppStore();
             let seat = document.getElementById(seatId);
             // console.log(seatId);
             if (seat.classList.contains('fill-red-500')) {
@@ -62,15 +70,20 @@ export default {
             } else {
                 if (this.selectedSeats.includes(seatId)) {
                     this.selectedSeats = this.selectedSeats.filter(id => id != seatId);
+                    store.setSelectedSeats(this.selectedSeats);
                     this.unselectedSeat(seat, seatId);
-                    // console.log(this.selectedSeats);
+                    console.log(store.selectedSeats);
                 } else {
                     this.selectedSeats.push(seatId);
+                    store.setSelectedSeats(this.selectedSeats);
                     this.selectedSeat(seat);
-                    // console.log(this.selectedSeats);
+                    console.log(store.selectedSeats);
                 }
             }
         }
+    },
+    mounted() {
+        console.log(this.ocuppiedSeats);
     }
 }
 </script>

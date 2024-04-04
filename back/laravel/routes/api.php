@@ -28,7 +28,7 @@ Route::get('/movie_session/{id}', [SessionsController::class, 'getByMovieId']);
 
 Route::get('/entradas', [EntradaController::class, 'index']);
 Route::post('/entradas', [EntradaController::class, 'create']);
-Route::get('/session/{id}/entradas', [EntradaController::class, 'showWithIdSession']); //session x entrada x
+Route::get('/session/{id}/entradas', [EntradaController::class, 'showWithIdSession']); 
 Route::post('/entradas/validate', [EntradaController::class, 'validateEmail']);
 Route::post('/entradas/searchIdEmail', [EntradaController::class, 'showWithEmailIdSession']);
 Route::post('/entradas/searchEmail', [EntradaController::class, 'showWithEmail']);
