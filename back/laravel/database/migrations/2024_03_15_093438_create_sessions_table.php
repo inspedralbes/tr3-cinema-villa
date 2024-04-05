@@ -31,7 +31,7 @@ return new class extends Migration
             'audienceDay' => true,
             'priceBase' => 4.00,
             'total_tickets' => 120, 
-            'tickets_sold' => 0, 
+            'tickets_sold' => 6, 
         ]);
 
         DB::table('sessions')->insert([
@@ -64,7 +64,7 @@ return new class extends Migration
             'hour' => '18:00:00', 
             'movie_id' => '12', 
             'total_tickets' => 120, 
-            'tickets_sold' => 0, 
+            'tickets_sold' => 5, 
         ]);
 
         DB::table('sessions')->insert([

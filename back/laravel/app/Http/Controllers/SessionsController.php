@@ -45,7 +45,7 @@ class SessionsController extends Controller
         if ($fildsets["audienceDay"] && !$fildsets["priceBase"]) {
             $session["audienceDay"] = $fildsets["audienceDay"];
             $session["priceBase"] = 4.00;
-        } else if ($fildsets["priceBase"]) {
+        } else if ($fildsets["priceBase"] && !$fildsets["audienceDay"]) {
             $session["priceBase"] = $fildsets["priceBase"];
         } else if ($fildsets["audienceDay"] && $fildsets["priceBase"]) {
             $session["audienceDay"] = $fildsets["audienceDay"];
