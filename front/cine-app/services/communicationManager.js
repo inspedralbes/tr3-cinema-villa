@@ -1,4 +1,5 @@
 const url = 'http://localhost:8000/api';
+// const url = 'http://tr3.cinemavilla.a22betvilver.daw.inspedralbes.cat/laravel/public/api'; //producción
 
 export function getAllMovies() {
     return new Promise((resolve, reject) => {

@@ -16,6 +16,23 @@
 
         <SelectSeats :ocuppiedSeats="this.ocuppiedSeats" />
 
+        <div v-show="showResumen" class="flex justify-center mt-3 mb-9">
+            <div class="flex flex-col items-center mx-9 text-white">
+                <div class="p-4 text-3xl font-bold tracking-wider">
+                    Asientos seleccionados
+                </div>
+                <div class="flex flex-col items-center justify-center">
+                    <div v-for="seat in selectedSeats" :key="seat" class="px-2 mx-2 text-lg">
+                        {{ seat }} || {{ seat.includes('VIP') ? (parseFloat(session.priceBase) + 2.00).toFixed(2) : session.priceBase }} €
+                    </div>
+                </div>
+                <div class="m-5">
+                    <button class="mx-3 px-3 py-1 text-xl bg-violet-500 rounded-lg" @click="formForBuy()">
+                        Comprar
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
     
     <div v-if="showSession == false" class="flex items-center justify-center h-screen">
@@ -33,10 +50,15 @@ export default {
             session: {},
             movie: {},
             ocuppiedSeats: [],
-            showSession: false
+            selectedSeats: [],
+            showSession: false,
+            showResumen: false
         };
     },
     methods: {
+        formForBuy() {
+            
+        }
     },
     mounted() {
         const store = useAppStore();
@@ -49,7 +71,7 @@ export default {
             store.setMovieId(this.session.movie_id);
             getMovie(store.id_movie).then((response) => {
                 this.movie = response;
-                store.setMovie(response);                
+                store.setMovie(response);
             }).catch((error) => {
                 console.error(error);
             });
@@ -68,6 +90,16 @@ export default {
         }).catch((error) => {
             console.error(error);
         });
+
+        setInterval(() => {
+            this.selectedSeats = store.selectedSeats;
+            // console.log(this.selectedSeats);
+            if (this.selectedSeats.length > 0) {
+                this.showResumen = true;
+            } else {
+                this.showResumen = false;
+            }
+        }, 500);
     }
 }
 </script>

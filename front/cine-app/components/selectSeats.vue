@@ -5,7 +5,7 @@
             <div class="flex items-center mr-9"> {{ row }} </div>
             <div class="flex flex-row">
                 <div v-for="n in 10" class="flex flex-row items-center justify-center">
-                    <div v-if="row == 'A'" class="absolute transform -translate-y-9 mb-9" :class="n % 5 == 0 ? 'mr-8  ml-1' : 'mx-1'">{{ n }}</div>
+                    <div v-if="row == 'A'" class="absolute transform -translate-y-9 mb-9" :class="n % 5 == 0 ? 'mr-8  ml-1' : 'mx-1'">{{ n }}</div>                    
                     <div v-if="this.ocuppiedSeats.includes(`${row}-${n}`) || this.ocuppiedSeats.includes(`${row}-${n}-VIP`)" class="flex flex-row items-center justify-center text-2xl">
                         <Seat   :id="`${row}-${n}`" 
                                 :class="n % 5 == 0 ? 'mr-8 my-1 ml-1' : 'mx-1 -my-1'"
@@ -72,18 +72,18 @@ export default {
                     this.selectedSeats = this.selectedSeats.filter(id => id != seatId);
                     store.setSelectedSeats(this.selectedSeats);
                     this.unselectedSeat(seat, seatId);
-                    console.log(store.selectedSeats);
+                    // console.log(store.selectedSeats);
                 } else {
                     this.selectedSeats.push(seatId);
                     store.setSelectedSeats(this.selectedSeats);
                     this.selectedSeat(seat);
-                    console.log(store.selectedSeats);
+                    // console.log(store.selectedSeats);
                 }
             }
         }
     },
     mounted() {
-        console.log(this.ocuppiedSeats);
+        // console.log(this.ocuppiedSeats);
     }
 }
 </script>

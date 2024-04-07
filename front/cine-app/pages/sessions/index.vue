@@ -60,20 +60,20 @@ export default {
                 this.sessions = response;
                 store.setAllSessions(response);
                 this.showSessions = true;
-                console.log(this.sessions);
+                // console.log(this.sessions);
             })
             .catch((error) => {
                 console.error(error);
             });
 
         this.movies = store.all_movies;
-        console.log(this.movies);
+        // console.log(this.movies);
         if (this.movies.length == 0) {
             getAllMovies()
                 .then((response) => {
                     this.movies = response;
                     store.setAllMovies(response);
-                    console.log(this.movies);
+                    // console.log(this.movies);
                 })
                 .catch((error) => {
                     console.error(error);
