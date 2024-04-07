@@ -110,32 +110,14 @@ export function getOccupiedSeats(id) {
 }
 
 //cambiar para hacerlo con seats pasados por parametro
-export function postBuyEntradas () {
+export function postBuyEntradas (data) {
     return new Promise((resolve, reject) => {
         fetch(`${url}/entradas`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                "session_id": 1,
-                "cliente": {
-                    "email": "cliente@example.com",
-                    "first_name": "Juan",
-                    "last_name": "González",
-                    "phone_number": "123456789"
-                },
-                "seats": [
-                    "A-1",
-                    "A-2",
-                    "A-3",
-                    "A-4",
-                    "A-5",
-                    "A-6",
-                    "A-7",
-                    "F-8-VIP"
-                ]
-            })
+            body: JSON.stringify(data)
         }).then(response => {
             if (response.status == 200) {
                 return response.json();

@@ -27,7 +27,11 @@
         </div>
     </div>
 
-    <SessionSection v-if="showMovie" class="p-9 bg-blue-950" :id_movie="this.$route.params.id" />
+    <div class="p-9 bg-blue-950">
+        <SessionSection v-if="showMovie" :id_movie="this.$route.params.id" />
+    </div>
+
+    <!-- <SessionSection v-if="showMovie" class="p-9 bg-blue-950" :id_movie="this.$route.params.id" /> -->
 
     <div v-show="!showMovie" class="flex items-center justify-center h-screen">
         <div class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12"></div>

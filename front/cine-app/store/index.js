@@ -12,7 +12,9 @@ export const useAppStore = defineStore({
             id_movie: Number,
             id_session: Number,
             selectedSeats: [],
-            occupiedSeats: []
+            occupiedSeats: [],
+            //session
+            client: {}
         }
     },
     actions: {

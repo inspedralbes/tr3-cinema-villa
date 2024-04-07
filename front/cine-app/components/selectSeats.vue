@@ -27,6 +27,10 @@
             </div>
         </div>
     </div>
+
+    <div v-show="errorAlert">
+        <ErrorPopup :error="this.error" />
+    </div>
 </template>
 
 <script>
@@ -42,10 +46,20 @@ export default {
     data() {        
         return {
             rows: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'],
-            selectedSeats: []
+            selectedSeats: [],
+            error: '',
+            errorAlert: false
         }
     },
     methods: {
+        showError(message) {
+            this.error = message;
+            this.errorAlert = true; // Mostrar el mensaje de error
+            setTimeout(() => {
+                this.error = '';
+                this.errorAlert = false;
+            }, 15000); // Ocultar el mensaje después de 15 segundos
+        },
         selectedSeat(seat){
             seat.classList.remove('fill-slate-300');
             seat.classList.remove('fill-yellow-500');
@@ -64,9 +78,9 @@ export default {
             let seat = document.getElementById(seatId);
             // console.log(seatId);
             if (seat.classList.contains('fill-red-500')) {
-                alert('Este asiento ya está ocupado');
+                this.showError('Este asiento ya está ocupado');
             } else if (this.selectedSeats.length == 10 && seat.classList.contains('fill-slate-300')) {
-                alert('No puedes seleccionar más de 10 asientos');
+                this.showError('No puedes seleccionar más de 10 asientos');
             } else {
                 if (this.selectedSeats.includes(seatId)) {
                     this.selectedSeats = this.selectedSeats.filter(id => id != seatId);
