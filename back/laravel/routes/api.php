@@ -32,6 +32,7 @@ Route::get('/session/{id}/entradas', [EntradaController::class, 'showWithIdSessi
 Route::post('/entradas/validate', [EntradaController::class, 'validateEmail']);
 Route::post('/entradas/searchIdEmail', [EntradaController::class, 'showWithEmailIdSession']);
 Route::post('/entradas/searchEmail', [EntradaController::class, 'showWithEmail']);
+Route::post('/entradas/totalPurchase', [EntradaController::class, 'showTotalPurchase']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

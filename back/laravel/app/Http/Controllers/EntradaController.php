@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Entrada;
 use App\Models\Sessions;
+use App\Mail\CorreoEntradas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class EntradaController extends Controller
@@ -101,6 +103,13 @@ class EntradaController extends Controller
             // Al menos una entrada no pudo ser creada
             return response()->json(['message' => 'Alguna(s) de las entradas no pudo ser creada, por lo cual no se ha hecho la compra', 'errors' => $errorCount], 500);
         } else {
+            $data = [
+                'session_id' => $session_id,
+                'email' => $cliente['email'],
+            ];
+            $totalPrice = EntradaController::showTotalPurchase($data);
+            // Enviar correo
+            Mail::to($cliente['email'])->send(new CorreoEntradas($entradas, $cliente, $session_id, $totalPrice)); 
             // Todas las entradas se crearon correctamente
             return response()->json(['message' => 'Las ' . count($entradas) . ' entradas se crearon correctamente'], 200);
         }
@@ -183,6 +192,21 @@ class EntradaController extends Controller
             return response()->json(['message' => 'Entrada no encontrada'], 404);
         } else {
             return response()->json($entradas);
+        }
+    }
+
+    public function showTotalPurchase($request)
+    {
+        $entradas = Entrada::where('email', $request['email'])->where('session_id', $request['session_id'])->get();
+
+        if ($entradas->isEmpty()) {
+            return response()->json(['message' => 'Entrada no encontrada'], 404);
+        } else {
+            $total = 0;
+            foreach ($entradas as $entrada) {
+                $total += $entrada->price;
+            }
+            return response()->json(['total' => $total], 200);
         }
     }
 }

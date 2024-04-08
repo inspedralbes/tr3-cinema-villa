@@ -8,17 +8,28 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use App\Models\Sessions;
+
 
 class CorreoEntradas extends Mailable
 {
     use Queueable, SerializesModels;
+    public $seats;
+    public $cliente;
+    public $session;
+    public $totalPrice;
+
 
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($seats, $cliente, $id_session, $totalPrice)
     {
-        //
+        $this->seats = $seats;
+        $this->cliente = $cliente;
+        $this->session = Sessions::find($id_session);    
+        // $response = json_decode($totalPrice, true);
+        // $this->totalPrice = $response['total'];
     }
 
     public function build()
@@ -32,7 +43,7 @@ class CorreoEntradas extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Correo Entradas',
+            subject: 'Confirmación de Compra en CineVilla',
         );
     }
 
@@ -44,15 +55,5 @@ class CorreoEntradas extends Mailable
         return new Content(
             view: 'mail.resumTickets',
         );
-    }
-
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
-     */
-    public function attachments(): array
-    {
-        return [];
     }
 }
