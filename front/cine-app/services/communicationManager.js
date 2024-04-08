@@ -1,5 +1,5 @@
-// const url = 'http://localhost:8000/api';
-const url = 'http://tr3.cinemavilla.a22betvilver.daw.inspedralbes.cat/laravel/public/api'; //producción
+const url = 'http://localhost:8000/api';
+// const url = 'http://tr3.cinemavilla.a22betvilver.daw.inspedralbes.cat/laravel/public/api'; //producción
 
 export function getAllMovies() {
     return new Promise((resolve, reject) => {
@@ -109,7 +109,6 @@ export function getOccupiedSeats(id) {
     });
 }
 
-//cambiar para hacerlo con seats pasados por parametro
 export function postBuyEntradas (data) {
     return new Promise((resolve, reject) => {
         fetch(`${url}/entradas`, {

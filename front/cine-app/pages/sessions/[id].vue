@@ -117,13 +117,12 @@ export default {
             if (data.cliente.email == '' || data.cliente.first_name == '' || data.cliente.last_name == '' || data.cliente.phone_number == '' || data.seats.length == 0) {
                 this.showError('Faltan datos para completar la compra');                
             } else {
-                console.log('Datos completos');
                 postBuyEntradas(data).then((response) => {
                     console.log(response);
                     this.showForm = false;
                     this.showResumen = false;
                     store.setSelectedSeats([]);
-                    
+                    this.$router.push({ path: '/'});
                 }).catch((error) => {
                     console.error(error);
                 });

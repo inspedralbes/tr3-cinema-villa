@@ -21,11 +21,9 @@
       </div>
     </div>
   </nav>
-  <SpeedInsights />
 </template>
 
 <script>
-import { SpeedInsights } from "@vercel/speed-insights/nuxt"
 
 export default {
   data() {
