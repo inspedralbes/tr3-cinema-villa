@@ -74,6 +74,7 @@
 <script>
 import { getSession, getMovie, getOccupiedSeats, postBuyEntradas } from '~/services/communicationManager.js';
 import { useAppStore } from '~/store';
+import { socket } from '~/services/socket';
 
 export default {
     data() {
@@ -159,6 +160,8 @@ export default {
         }).catch((error) => {
             console.error(error);
         });
+
+        socket.emit('connectToRoom', store.id_session);
 
         setInterval(() => {
             this.selectedSeats = store.selectedSeats;

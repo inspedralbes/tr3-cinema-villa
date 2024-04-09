@@ -98,6 +98,7 @@ export default {
     },
     mounted() {
         // console.log(this.ocuppiedSeats);
+        
     }
 }
 </script>

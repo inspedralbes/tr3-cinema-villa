@@ -34,15 +34,21 @@ jobs:
         uses: burnett01/rsync-deployments@7.0.0
         with:
           switches: -avzr --delete
-          path: front/cine-app/dist/
+          path: cine-app/dist/
           remote_path: ${{ secrets.REMOTE_TARGET }}
           remote_host: ${{ secrets.REMOTE_HOST }}
           remote_user: ${{ secrets.REMOTE_USER }}
           remote_key: ${{ secrets.KEY_SECRET }}  
 
-      - name: Install composer dependencies for Laravel
-        working-directory: ./back/laravel
-        run: composer install
+      - name: Pujant node  
+        uses: burnett01/rsync-deployments@7.0.0
+        with:
+          switches: -avzr --delete
+          path: node/
+          remote_path: ${{ secrets.REMOTE_TARGET }}/node
+          remote_host: ${{ secrets.REMOTE_HOST }}
+          remote_user: ${{ secrets.REMOTE_USER }}
+          remote_key: ${{ secrets.SSH_PRIVATE_KEY }}  
 
       - name: Pujant Laravel  
         uses: burnett01/rsync-deployments@7.0.0
@@ -53,5 +59,15 @@ jobs:
           remote_host: ${{ secrets.REMOTE_HOST }}
           remote_user: ${{ secrets.REMOTE_USER }}
           remote_key: ${{ secrets.KEY_SECRET }} 
+      
+      - name: Npm install i composer install a prod
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          key: ${{ secrets.KEY_SECRET }}
+          command_timeout: 30m
+          script: |
+            ls && cd ${{ secrets.REMOTE_TARGET }}/node && npm install && cd .. && cd ./laravel && composer install 
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
