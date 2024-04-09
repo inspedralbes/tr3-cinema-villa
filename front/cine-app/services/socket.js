@@ -8,4 +8,3 @@ let store;
 setTimeout(() => {
     store = useAppStore();
 }, 500);
-

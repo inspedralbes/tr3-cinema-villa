@@ -26,6 +26,9 @@ io.on('connection', (socket) => {
     socket.on('connectToRoom', (room) => {
         console.log('conectado a la sala', room);
         socket.join(room);
+        roomsList[room] = roomsList[room] ? roomsList[room] : [];
+        roomsList[room].push(socket.id);
+        console.log(roomsList);
     });
 
     socket.on('selectSeat', (data) => {

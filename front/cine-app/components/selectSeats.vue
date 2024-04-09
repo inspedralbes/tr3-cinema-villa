@@ -87,11 +87,14 @@ export default {
                     store.setSelectedSeats(this.selectedSeats);
                     this.unselectedSeat(seat, seatId);
                     // console.log(store.selectedSeats);
+                    //socket para quitar el asiento seleccionado
                 } else {
                     this.selectedSeats.push(seatId);
                     store.setSelectedSeats(this.selectedSeats);
                     this.selectedSeat(seat);
                     // console.log(store.selectedSeats);
+                    //socket para agregar el asiento seleccionado
+                    
                 }
             }
         }
