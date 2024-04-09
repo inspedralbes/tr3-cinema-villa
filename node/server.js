@@ -27,14 +27,16 @@ io.on('connection', (socket) => {
         console.log('conectado a la sala', room);
         socket.join(room);
         roomsList[room] = roomsList[room] ? roomsList[room] : [];
-        roomsList[room].push(socket.id);
+        roomsList[room]['socket.id'] = socket.id;
         console.log(roomsList);
     });
 
-    socket.on('selectSeat', (data) => {
-        console.log('asiento seleccionado', data);
-        selectedSeatsSockets[data] = socket.id;
-        socket.broadcast.emit('selectedSeat', data);
+    socket.on('updateSeats', (data) => {
+        const { room, seats } = data;
+        console.log('actualizando asientos', room, seats);
+        roomsList[room]['socket.id']['seats'] = seats;
+        console.log(roomsList);
+        // io.to(data.room).emit('updateSeats', roomsList[data.room]);
     });
 
     socket.on('disconnect', () => {

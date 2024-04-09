@@ -35,6 +35,7 @@
 
 <script>
 import { useAppStore } from '~/store';
+import { socket } from '~/services/socket';
 
 export default {
     props: {
@@ -87,14 +88,13 @@ export default {
                     store.setSelectedSeats(this.selectedSeats);
                     this.unselectedSeat(seat, seatId);
                     // console.log(store.selectedSeats);
-                    //socket para quitar el asiento seleccionado
+                    socket.emit('updateSeats', { room: store.id_session, seats: this.selectedSeats });  
                 } else {
                     this.selectedSeats.push(seatId);
                     store.setSelectedSeats(this.selectedSeats);
                     this.selectedSeat(seat);
                     // console.log(store.selectedSeats);
-                    //socket para agregar el asiento seleccionado
-                    
+                    socket.emit('updateSeats', { room: store.id_session, seats: this.selectedSeats });
                 }
             }
         }
