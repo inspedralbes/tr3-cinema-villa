@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MoviesController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\EntradaController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,7 @@ use App\Http\Controllers\EntradaController;
 |
 */
 
+//public routes
 Route::get('/movies', [MoviesController::class, 'index']);
 Route::post('/addMovie', [MoviesController::class,'create']);
 Route::get('/movie/{id}', [MoviesController::class, 'show']);
@@ -33,3 +35,11 @@ Route::post('/entradas/validate', [EntradaController::class, 'validateEmail']);
 Route::post('/entradas/searchIdEmail', [EntradaController::class, 'showWithEmailIdSession']);
 Route::post('/entradas/searchEmail', [EntradaController::class, 'showWithEmail']);
 Route::post('/entradas/totalPurchase', [EntradaController::class, 'showTotalPurchase']);
+
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+
+//protected routes
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
+});
