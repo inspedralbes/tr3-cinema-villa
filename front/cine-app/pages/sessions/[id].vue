@@ -40,7 +40,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
-            <form class="max-w-sm mx-auto">
+            <form class="max-w-sm mx-auto" method="POST">
                 <div class="mb-5">
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Correo electrónico</label>
                     <input type="email" id="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="example@gmail.com" required />
@@ -119,6 +119,7 @@ export default {
                 this.showError('Faltan datos para completar la compra');                
             } else {
                 postBuyEntradas(data).then((response) => {
+                    socket.emit('exitFromRoom', store.id_session);
                     console.log(response);
                     this.showForm = false;
                     this.showResumen = false;

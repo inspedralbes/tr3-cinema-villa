@@ -33,7 +33,3 @@ Route::post('/entradas/validate', [EntradaController::class, 'validateEmail']);
 Route::post('/entradas/searchIdEmail', [EntradaController::class, 'showWithEmailIdSession']);
 Route::post('/entradas/searchEmail', [EntradaController::class, 'showWithEmail']);
 Route::post('/entradas/totalPurchase', [EntradaController::class, 'showTotalPurchase']);
-
-Route::middleware('auth:sanctum')->get('/user', function () {
-    
-});

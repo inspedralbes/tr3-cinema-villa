@@ -121,7 +121,7 @@ export function postBuyEntradas (data) {
             if (response.status == 200) {
                 return response.json();
             } else {
-                reject('Error al comprar las entradas');
+                reject('Error al comprar las entradas: ' + response.statusText);
             }
         }).then(data => {
             JSON.stringify(data);
