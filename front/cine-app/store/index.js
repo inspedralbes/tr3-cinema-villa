@@ -16,7 +16,7 @@ export const useAppStore = defineStore({
             //session
             client: {},
             //socket
-            seatsRoomSocket: {}
+            seatsRoomSocket: []
         }
     },
     actions: {
@@ -49,6 +49,9 @@ export const useAppStore = defineStore({
         },
         setSeatsRoomSocket(data) {
             this.seatsRoomSocket = data
+        }, 
+        getSeatsRoomSocket() {
+            return this.seatsRoomSocket
         }   
     }
 })

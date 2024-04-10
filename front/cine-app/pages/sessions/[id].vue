@@ -14,8 +14,9 @@
             </div>
         </div>
 
-        <SelectSeats :ocuppiedSeats="this.ocuppiedSeats" />
-
+        <div :key="componentSeatsKey">
+            <SelectSeats :ocuppiedSeats="this.ocuppiedSeats"  />
+        </div>
         <div v-show="showResumen" class="flex justify-center mt-3 mb-9">
             <div class="flex flex-col items-center mx-9 text-white">
                 <div class="p-4 text-3xl font-bold tracking-wider">
@@ -83,6 +84,8 @@ export default {
             movie: {},
             ocuppiedSeats: [],
             selectedSeats: [],
+            seatsRoomSocket: [],
+            componentSeatsKey: 0,
             error: '',
             showSession: false,
             showResumen: false,
@@ -164,6 +167,22 @@ export default {
 
         socket.emit('connectToRoom', store.id_session);
 
+        socket.on('updateSeatsRoom', (data) => {
+            const updatedSeatsRoom = data.filter(item => item.socket_id != socket.id);
+            let seats = [];
+            for (let i = 0; i < updatedSeatsRoom.length; i++) {
+                if (updatedSeatsRoom[i].seats.length > 0) {
+                    for (let j = 0; j < updatedSeatsRoom[i].seats.length; j++) {
+                        seats.push(updatedSeatsRoom[i].seats[j]);
+                    }
+                }
+            }
+            store.setSeatsRoomSocket(seats);
+            this.seatsRoomSocket = seats;
+            console.log(seats);            
+            this.componentSeatsKey++;
+        });
+
         setInterval(() => {
             this.selectedSeats = store.selectedSeats;
             // console.log(this.selectedSeats);
@@ -174,7 +193,7 @@ export default {
                 this.showForm = false;
             }
         }, 500);
-    }
+    }        
 }
 </script>
 

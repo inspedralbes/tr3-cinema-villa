@@ -8,8 +8,3 @@ let store;
 setTimeout(() => {
     store = useAppStore();
 }, 500);
-
-socket.on('updateSeatsRoom', (data) => {
-    store.setSeatsRoomSocket(data);
-    console.log(store.seatsRoomSocket);
-});

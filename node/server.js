@@ -24,14 +24,14 @@ io.on('connection', (socket) => {
         // console.log('conectado a la sala', room);
         socket.join(room);
         roomsList[room] = roomsList[room] ? roomsList[room] : [];
-        roomsList[room].push({'socket.id': socket.id, 'seats': []});
+        roomsList[room].push({'socket_id': socket.id, 'seats': []});
         // console.log(roomsList);
     });
 
     socket.on('updateSeats', (data) => {
         const { room, seats } = data;
         roomsList[room].forEach((user) => {
-            if (user['socket.id'] == socket.id) {
+            if (user['socket_id'] == socket.id) {
                 user.seats = seats;
             }
         });
@@ -43,7 +43,7 @@ io.on('connection', (socket) => {
         if (socket.rooms.has(room)) {
             socket.leave(room);
             if (roomsList[room]) {
-                roomsList[room] = roomsList[room].filter(user => user['socket.id'] !== socket.id);
+                roomsList[room] = roomsList[room].filter(user => user['socket_id'] !== socket.id);
             }
             console.log('Lista de usuarios en la sala:', roomsList[room]);
         } else {
