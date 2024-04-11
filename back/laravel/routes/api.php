@@ -32,8 +32,6 @@ Route::get('/entradas', [EntradaController::class, 'index']);
 Route::post('/entradas', [EntradaController::class, 'create']);
 Route::get('/session/{id}/entradas', [EntradaController::class, 'showWithIdSession']); 
 Route::post('/entradas/validate', [EntradaController::class, 'validateEmail']);
-Route::post('/entradas/searchIdEmail', [EntradaController::class, 'showWithEmailIdSession']);
-Route::post('/entradas/searchEmail', [EntradaController::class, 'showWithEmail']);
 Route::post('/entradas/totalPurchase', [EntradaController::class, 'showTotalPurchase']);
 
 Route::post('/register', [AuthController::class, 'register']);
@@ -41,5 +39,9 @@ Route::post('/login', [AuthController::class, 'login']);
 
 //protected routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
+    //Buscadores de entradas
+    Route::post('/entradas/searchIdEmail', [EntradaController::class, 'showWithEmailIdSession']);
+    Route::post('/entradas/searchEmail', [EntradaController::class, 'showWithEmail']);
+    //Session
     Route::post('/logout', [AuthController::class, 'logout']);
 });

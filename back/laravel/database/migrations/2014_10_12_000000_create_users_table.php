@@ -18,9 +18,26 @@ return new class extends Migration
             $table->string('phone_number');
             $table->string('email')->unique();
             $table->string('password');
+            $table->integer('type')->default(2);
             $table->rememberToken();
         });
-    }
+
+        DB::table('users')->insert([
+            'first_name'=> 'Julie',
+            'last_name'=> 'Villegas',
+            'email'=> 'julievillegas77@gmail.com',
+            'password'=> bcrypt('julie')
+        ]);
+
+        DB::table('users')->insert([
+            'first_name'=> 'Pol',
+            'last_name'=> 'Prats',
+            'email'=> 'polprats@gmail.com',
+            'password'=> bcrypt('pol'),
+            'type' => 1,
+        ]);
+    } 
+
 
     /**
      * Reverse the migrations.

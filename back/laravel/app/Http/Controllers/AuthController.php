@@ -19,13 +19,18 @@ class AuthController extends Controller
             'password' => 'required|string|confirmed'
         ]);
 
-        $user = User::create([
-            'first_name' => $fields['first_name'],
-            'last_name' => $fields['last_name'],
-            'phone_number' => $fields['phone_number'],            
-            'email' => $fields['email'],
-            'password' => bcrypt($fields['password'])  
-        ]);
+        $user = new User();
+
+        $user->first_name = $fields['first_name'];
+        $user->last_name = $fields['last_name'];
+        $user->email = $fields['email'];
+        $user->password = bcrypt($fields['password']);
+
+        if ($fields['type'] != null) {
+            $user->type = $fields['type'];
+        } 
+
+        $user->save();
 
         $token = $user->createToken('myapptoken' + $user->id_user)->plainTextToken;
 
