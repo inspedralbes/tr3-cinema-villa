@@ -18,12 +18,17 @@
       <div :class="menuClasses">
         <nuxt-link to="/" class="text-white block mt-4 lg:inline-block lg:mt-0 mr-4">Cartelera</nuxt-link>
         <nuxt-link to="/sessions/" class="text-white block mt-4 lg:inline-block lg:mt-0 mr-4">Sesiones</nuxt-link>
+        <nuxt-link to="/accesUser" class="text-white block mt-4 lg:inline-block lg:mt-0 mr-2">Login</nuxt-link>
+        <p class="text-white mr-2">/</p>
+        <nuxt-link @click="postLogoutFetch()" class="text-white cursor-pointer block mt-4 lg:inline-block lg:mt-0">Logout</nuxt-link>
       </div>
     </div>
   </nav>
 </template>
 
 <script>
+import { useAppStore } from '~/store';
+import { postLogout } from '~/services/communicationManager';
 
 export default {
   data() {
@@ -34,6 +39,11 @@ export default {
   methods: {
     toggleMenu() {
       this.showMenu = !this.showMenu;
+    },
+    postLogoutFetch() {
+      const store = useAppStore();
+      postLogout(store.token);
+      this.$router.push('/');
     }
   },
   computed: {

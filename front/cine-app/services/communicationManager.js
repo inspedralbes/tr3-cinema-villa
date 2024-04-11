@@ -132,14 +132,14 @@ export function postBuyEntradas (data) {
     });
 }
 
-export function postRegister (data) {
+export function postRegister (user) {
     return new Promise((resolve, reject) => {
         fetch(`${url}/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(user)
         }).then(response => {
             if (response.status == 200) {
                 return response.json();
@@ -155,14 +155,14 @@ export function postRegister (data) {
     });
 }
 
-export function postLogin (data) {
+export function postLogin (user) {
     return new Promise((resolve, reject) => {
         fetch(`${url}/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(user)
         }).then(response => {
             if (response.status == 200) {
                 return response.json();
@@ -178,21 +178,21 @@ export function postLogin (data) {
     });
 }
 
-export function postLogout (data) {
+export function postLogout(token) {
     return new Promise((resolve, reject) => {
         fetch(`${url}/logout`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             }
         }).then(response => {
-            if (response.status == 200) {
+            if (response.status === 200) {
                 return response.json();
             } else {
                 reject('Error al cerrar sesión: ' + response.statusText);
             }
         }).then(data => {
-            JSON.stringify(data);
             resolve(data);
         }).catch(error => {
             reject(error);
