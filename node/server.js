@@ -6,7 +6,7 @@ const app = express();
 const port = 3727;
 const server = createServer(app);
 
-const roomsList = {};
+const roomsList = [];
 
 const io = new Server(server, {
     cors: {
@@ -43,7 +43,7 @@ io.on('connection', (socket) => {
         if (socket.rooms.has(room)) {
             socket.leave(room);
             if (roomsList[room]) {
-                roomsList[room] = roomsList[room].filter(user => user['socket_id'] !== socket.id);
+                roomsList[room] = roomsList[room].filter(user => user['socket_id'] != socket.id);
             }
             console.log('Lista de usuarios en la sala:', roomsList[room]);
         } else {
@@ -52,8 +52,41 @@ io.on('connection', (socket) => {
     });
 
     socket.on('disconnect', () => {
+        let roomsUserEstate = [];
+        Object.keys(roomsList).forEach((roomKey) => {
+            const room = roomsList[roomKey];
+            const updatedRoom = room.filter(user => user.socket_id !== socket.id);
+            if (updatedRoom.length !== room.length) { // Si se eliminó algún usuario
+                roomsUserEstate.push(roomKey);
+                roomsList[roomKey] = updatedRoom; // Actualizar la lista de usuarios en la sala
+            }
+        });
+        // Emitir actualización a las salas afectadas
+        roomsUserEstate.forEach(room => {
+            io.to(room).emit('updateSeatsRoom', roomsList[room]);
+        });
         console.log('user desconectado ' + socket.id);
     });
+    
+
+    // socket.on('disconnect', () => {
+    //     let roomsUserEstate = [];
+    //     roomsList.forEach((room) => {
+    //         console.log(room);
+    //         if (room.array == room.array.filter(user => user['socket_id'] != socket.id)) {   
+    //             roomsUserEstate.push(room);
+    //         }
+    //         // room = room.array.forEach(user => {
+    //         //     userToErase = user.findIndex(user => user.socket_id == socket.id);
+    //         //     room.splice(userToErase, 1);
+    //         // });
+    //     });
+    //     console.log(roomsList);
+    //     for (let i = 0; i < roomsUserEstate.length; i++) {
+    //         io.to(roomsUserEstate[i]).emit('updateSeatsRoom', roomsList[roomsUserEstate[i]]);
+    //     }
+    //     console.log('user desconectado ' + socket.id);
+    // });
 })
 
 server.listen(port, () => {

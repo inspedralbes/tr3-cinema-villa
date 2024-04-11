@@ -131,3 +131,71 @@ export function postBuyEntradas (data) {
         });
     });
 }
+
+export function postRegister (data) {
+    return new Promise((resolve, reject) => {
+        fetch(`${url}/register`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }).then(response => {
+            if (response.status == 200) {
+                return response.json();
+            } else {
+                reject('Error al registrar el usuario: ' + response.statusText);
+            }
+        }).then(data => {
+            JSON.stringify(data);
+            resolve(data);
+        }).catch(error => {
+            reject(error);
+        });
+    });
+}
+
+export function postLogin (data) {
+    return new Promise((resolve, reject) => {
+        fetch(`${url}/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }).then(response => {
+            if (response.status == 200) {
+                return response.json();
+            } else {
+                reject('Error al iniciar sesión: ' + response.statusText);
+            }
+        }).then(data => {
+            JSON.stringify(data);
+            resolve(data);
+        }).catch(error => {
+            reject(error);
+        });
+    });
+}
+
+export function postLogout (data) {
+    return new Promise((resolve, reject) => {
+        fetch(`${url}/logout`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => {
+            if (response.status == 200) {
+                return response.json();
+            } else {
+                reject('Error al cerrar sesión: ' + response.statusText);
+            }
+        }).then(data => {
+            JSON.stringify(data);
+            resolve(data);
+        }).catch(error => {
+            reject(error);
+        });
+    });
+}
