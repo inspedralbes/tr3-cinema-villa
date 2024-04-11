@@ -23,23 +23,24 @@ class AuthController extends Controller
 
         $user->first_name = $fields['first_name'];
         $user->last_name = $fields['last_name'];
+        $user->phone_number = $fields['phone_number'];
         $user->email = $fields['email'];
         $user->password = bcrypt($fields['password']);
 
-        if ($fields['type'] != null) {
+        if (isset($fields['type'])) {
             $user->type = $fields['type'];
         } 
 
         $user->save();
 
-        $token = $user->createToken('myapptoken' + $user->id_user)->plainTextToken;
+        $token = $user->createToken($user['email'])->plainTextToken;
 
         $response = [
             'user' => $user,
             'token' => $token
         ];
 
-        return response($response, 201);
+        return response($response, 200);
     }
 
     public function login(Request $request)
@@ -59,14 +60,14 @@ class AuthController extends Controller
             ], 401);
         }
 
-        $token = $user->createToken('myapptoken' + $user->id_user)->plainTextToken;
+        $token = $user->createToken($user['email'])->plainTextToken;
 
         $response = [
             'user' => $user,
             'token' => $token
         ];
 
-        return response($response, 201);
+        return response($response, 200);
     }
 
     public function logout(Request $request)

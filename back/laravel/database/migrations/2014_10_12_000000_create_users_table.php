@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -25,6 +26,7 @@ return new class extends Migration
         DB::table('users')->insert([
             'first_name'=> 'Julie',
             'last_name'=> 'Villegas',
+            'phone_number'=> '123456789',
             'email'=> 'julievillegas77@gmail.com',
             'password'=> bcrypt('julie')
         ]);
@@ -32,6 +34,7 @@ return new class extends Migration
         DB::table('users')->insert([
             'first_name'=> 'Pol',
             'last_name'=> 'Prats',
+            'phone_number'=> '987654321',
             'email'=> 'polprats@gmail.com',
             'password'=> bcrypt('pol'),
             'type' => 1,

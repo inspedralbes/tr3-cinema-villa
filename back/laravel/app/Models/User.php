@@ -22,7 +22,8 @@ class User extends Authenticatable
         'last_name',
         'phone_number',
         'email',
-        'password'
+        'password',
+        'type'
     ];
 
     /**
@@ -43,6 +44,9 @@ class User extends Authenticatable
     protected $casts = [
         'password' => 'hashed',
     ];
+
+    protected $table = 'users';
+    protected $primaryKey = 'id_user';
 
     public $timestamps = false;
 }
