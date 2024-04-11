@@ -18,9 +18,12 @@
       <div :class="menuClasses">
         <nuxt-link to="/" class="text-white block mt-4 lg:inline-block lg:mt-0 mr-4">Cartelera</nuxt-link>
         <nuxt-link to="/sessions/" class="text-white block mt-4 lg:inline-block lg:mt-0 mr-4">Sesiones</nuxt-link>
-        <nuxt-link to="/accesUser" class="text-white block mt-4 lg:inline-block lg:mt-0 mr-2">Login</nuxt-link>
-        <p class="text-white mr-2">/</p>
-        <nuxt-link @click="postLogoutFetch()" class="text-white cursor-pointer block mt-4 lg:inline-block lg:mt-0">Logout</nuxt-link>
+        <nuxt-link v-if="!userExist" to="/accesUser" class="text-white block mt-4 lg:inline-block lg:mt-0 mr-4">Login</nuxt-link>
+        <div v-else>
+          <nuxt-link to="/entradas/" class="text-white cursor-pointer block mt-4 lg:inline-block lg:mt-0 mr-4">Mis Compras</nuxt-link>
+          <nuxt-link v-if="userAdmin" to="/admin/" class="text-white cursor-pointer block mt-4 lg:inline-block lg:mt-0 mr-4">Administración</nuxt-link>
+          <nuxt-link @click="postLogoutFetch()" class="text-white cursor-pointer block mt-4 lg:inline-block lg:mt-0">Logout</nuxt-link>
+        </div>
       </div>
     </div>
   </nav>
@@ -33,7 +36,9 @@ import { postLogout } from '~/services/communicationManager';
 export default {
   data() {
     return {
-      showMenu: false
+      showMenu: false,
+      userExist: false,
+      userAdmin: false
     }
   },
   methods: {
@@ -43,6 +48,7 @@ export default {
     postLogoutFetch() {
       const store = useAppStore();
       postLogout(store.token);
+      store.token = '';
       this.$router.push('/');
     }
   },
@@ -58,6 +64,13 @@ export default {
         'text-center': true
       };
     }
+  },
+  mounted() {
+    setInterval(() => {
+      const store = useAppStore();
+      this.userExist = store.token != '';
+      this.userAdmin = store.user?.type == 1;
+    }, 500);
   }
 }
 </script>

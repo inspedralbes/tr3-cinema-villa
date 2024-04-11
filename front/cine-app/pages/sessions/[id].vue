@@ -1,4 +1,5 @@
 <template>
+    <NuxtLayout name="navbar" /> 
     <div v-if="showSession == true" >
         <div class="flex flex-col items-center justify-center">
             <img :src="movie.image" :alt="movie.title" class="w-full object-cover h-auto max-h-40 mb-4">

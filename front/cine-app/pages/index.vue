@@ -1,4 +1,5 @@
 <template>
+  <NuxtLayout name="navbar" /> 
   <HeaderLanding />
   <div class="flex flex-wrap justify-center bg-blue-950">
     <MovieCard v-for="movie in movies" :key="movie.id_movie" :movie="movie" class="m-4 cursor-pointer"/>

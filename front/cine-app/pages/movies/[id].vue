@@ -1,4 +1,5 @@
 <template>
+    <NuxtLayout name="navbar" /> 
     <HeaderMovie v-show="showMovie" :movie="movie" />
     <MoviesCarousel class="p-4 pb-8" v-show="showMovie" :movies="movies" />
 

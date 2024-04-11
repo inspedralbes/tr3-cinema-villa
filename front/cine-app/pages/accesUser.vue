@@ -1,4 +1,5 @@
 <template>
+    <NuxtLayout name="navbar" /> 
     <div class="m-9 p-9 bg-blue-950">
         <div class="bg-blue-950 py-8">
             <div class="container mx-auto">

@@ -1,4 +1,5 @@
 <template>
+    <NuxtLayout name="navbar" /> 
     <div class="mx-9">
         <h1 class="text-4xl mx-9 font-semibold tracking-wider text-center text-white py-8">¡Descubre todas nuestras sessiones!</h1>
         <p class="mb-9 text-xl text-center text-slate-300">Las mejores peliculas infantiles disponibles en CINEVILLA...</p>
