@@ -22,7 +22,7 @@
                                 class="cursor-pointer fill-green-300"
                                 @click="handleSeatClick(`${row}-${n}`)"/>
                     </div>
-                    <div v-else-if="row == 'F'" class="flex flex-row items-center justify-center text-2xl">
+                    <div v-else-if="row == 'F' && this.sessionVIP" class="flex flex-row items-center justify-center text-2xl">
                         <Seat   :id="`${row}-${n}-VIP`" 
                                 :class="n % 5 == 0 ? 'mr-8 my-1 ml-1' : 'mx-1 -my-1'"
                                 class="cursor-pointer fill-yellow-500"
@@ -60,6 +60,7 @@ export default {
             rows: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'],
             selectedSeats: [],
             seatsRoomSocket: [],
+            sessionVIP: false,
             error: '',
             errorAlert: false
         }
@@ -111,6 +112,7 @@ export default {
     },
     mounted() {
         const store = useAppStore();
+        this.sessionVIP = store.session.vip;
         this.selectedSeats = store.selectedSeats;
         this.seatsRoomSocket = store.seatsRoomSocket;
     }

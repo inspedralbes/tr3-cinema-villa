@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreign('movie_id')->references('id_movie')->on('movies')->onDelete('cascade');
             $table->boolean('audienceDay')->default(false);
             $table->decimal('priceBase', 10, 2)->default(6.00);
+            $table->boolean('vip')->default(false);
             $table->integer('total_tickets')->default(120);
             $table->integer('tickets_sold')->default(0);
         });
@@ -30,6 +31,7 @@ return new class extends Migration
             'movie_id' => '1',
             'audienceDay' => true,
             'priceBase' => 4.00,
+            'vip' => true,
             'total_tickets' => 120, 
             'tickets_sold' => 6, 
         ]);
@@ -39,6 +41,7 @@ return new class extends Migration
             'hour' => '16:00:00', 
             'movie_id' => '6',
             'priceBase' => 8.00,
+            'vip' => true,
             'total_tickets' => 120, 
             'tickets_sold' => 0, 
         ]);
@@ -63,6 +66,7 @@ return new class extends Migration
             'day' => '2024-04-19', 
             'hour' => '18:00:00', 
             'movie_id' => '12', 
+            'vip' => true,
             'total_tickets' => 120, 
             'tickets_sold' => 5, 
         ]);
@@ -87,6 +91,7 @@ return new class extends Migration
             'day' => '2024-04-22', 
             'hour' => '16:00:00', 
             'movie_id' => '5', 
+            'vip' => true,
             'total_tickets' => 120, 
             'tickets_sold' => 0, 
         ]);
@@ -95,6 +100,7 @@ return new class extends Migration
             'day' => '2024-04-23', 
             'hour' => '20:00:00', 
             'movie_id' => '16', 
+            'vip' => true,
             'total_tickets' => 120, 
             'tickets_sold' => 0, 
         ]);

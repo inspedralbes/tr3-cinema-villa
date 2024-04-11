@@ -52,6 +52,9 @@ class SessionsController extends Controller
             $session["priceBase"] = $fildsets["priceBase"];
         }
         
+        if (isset($fields['vip'])) {
+            $session["vip"] = $fildsets["vip"];
+        }
 
         if ($session->save()) {
             // Session saved successfully
