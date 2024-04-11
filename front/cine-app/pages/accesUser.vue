@@ -82,7 +82,11 @@
                 </div>
             </div>
         </div>
+        <div v-show="errorAlert">
+            <ErrorPopup :error="this.error"/>
+        </div>
     </div>
+    
 </template>
 
 <script>
@@ -98,16 +102,26 @@ export default {
             phoneNumber: '',
             email: '',
             passwordConfirmation: '',
-            showRegister: false
+            error: '',
+            showRegister: false,
+            errorAlert: false
         };
     },
     methods: {
+        showError(message) {
+            this.error = message;
+            this.errorAlert = true; // Mostrar el mensaje de error
+            setTimeout(() => {
+                this.error = '';
+                this.errorAlert = false;
+            }, 15000); // Ocultar el mensaje después de 15 segundos
+        },
         postLoginForm() {
             const store = useAppStore();
             // Agrega aquí la lógica para iniciar sesión
             console.log('Iniciar sesión con usuario:', this.email, 'y contraseña:', this.password);
             if (this.email == '' || this.password == '') {
-                alert('Por favor, llena todos los campos');
+                this.showError('Por favor, llena todos los campos');
             } else {
                 let user = {
                     email: this.email,
@@ -129,7 +143,7 @@ export default {
             // Agrega aquí la lógica para el registro
             console.log('Registro con:', this.firstName, this.lastName, this.phoneNumber, this.email, this.password, this.passwordConfirmation);
             if (this.firstName == '' || this.lastName == '' || this.phoneNumber == '' || this.email == '' || this.password == '' || this.passwordConfirmation == '') {
-                alert('Por favor, llena todos los campos');
+                this.showError('Por favor, llena todos los campos');
             } else {
                 let user = {
                     first_name: this.firstName,
