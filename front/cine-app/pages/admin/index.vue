@@ -1,4 +1,5 @@
 <template>
+    <NuxtLayout name="navbar" /> 
     <div>
         <h1>Admin</h1>
     </div>
