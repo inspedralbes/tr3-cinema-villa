@@ -222,3 +222,51 @@ export function postLogout(token) {
         });
     });
 }
+
+export function getEntradasWithEmailSession (data, token) {
+    return new Promise((resolve, reject) => {
+        fetch(`${url}/entradas/searchIdEmail`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(data)
+        }).then(response => {
+            if (response.status == 200) {
+                return response.json();
+            } else {
+                reject('Error al obtener las entradas: ' + response.statusText);
+            }
+        }).then(data => {
+            JSON.stringify(data);
+            resolve(data);
+        }).catch(error => {
+            reject(error);
+        });
+    });
+}
+
+export function getEntradasWithEmail (data, token) {
+    return new Promise((resolve, reject) => {
+        fetch(`${url}/entradas/searchEmail`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(data)
+        }).then(response => {
+            if (response.status == 200) {
+                return response.json();
+            } else {
+                reject('Error al obtener las entradas: ' + response.statusText);
+            }
+        }).then(data => {
+            JSON.stringify(data);
+            resolve(data);
+        }).catch(error => {
+            reject(error);
+        });
+    });
+}
