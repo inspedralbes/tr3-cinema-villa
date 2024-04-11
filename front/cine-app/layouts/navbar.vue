@@ -70,7 +70,7 @@ export default {
       const store = useAppStore();
       this.userExist = store.token != '';
       this.userAdmin = store.user?.type == 1;
-    }, 500);
+    }, 250);
   }
 }
 </script>
