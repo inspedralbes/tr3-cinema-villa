@@ -1,7 +1,9 @@
 <template>
     <NuxtLayout name="navbar" />    
-    <div>
-
+    <div class="bg-blue-950 py-8">
+        <div class="container mx-auto">
+            <h2 class="text-6xl font-semibold tracking-wider text-center text-white py-2">Administración de Peliculas</h2>
+        </div>
     </div>
 </template>
 
@@ -15,6 +17,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 
 </style>

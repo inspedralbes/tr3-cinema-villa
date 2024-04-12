@@ -270,3 +270,168 @@ export function getEntradasWithEmail (data, token) {
         });
     });
 }
+
+export function addSession (data, token) {
+    return new Promise((resolve, reject) => {
+        fetch(`${url}/addSession`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(data)
+        }).then(response => {
+            if (response.status == 200) {
+                return response.json();
+            } else {
+                reject('Error al añadir la función: ' + response.statusText);
+            }
+        }).then(data => {
+            JSON.stringify(data);
+            resolve(data);
+        }).catch(error => {
+            reject(error);
+        });
+    });
+}
+
+export function updateSession (data, token) {
+    return new Promise((resolve, reject) => {
+        fetch(`${url}/updateSession`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(data)
+        }).then(response => {
+            if (response.status == 200) {
+                return response.json();
+            } else {
+                reject('Error al actualizar la función: ' + response.statusText);
+            }
+        }).then(data => {
+            JSON.stringify(data);
+            resolve(data);
+        }).catch(error => {
+            reject(error);
+        });
+    });
+}
+
+export function deleteSession (id, token) {
+    return new Promise((resolve, reject) => {
+        fetch(`${url}/deleteSession/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        }).then(response => {
+            if (response.status == 200) {
+                return response.json();
+            } else {
+                reject('Error al eliminar la función: ' + response.statusText);
+            }
+        }).then(data => {
+            JSON.stringify(data);
+            resolve(data);
+        }).catch(error => {
+            reject(error);
+        });
+    });
+}
+
+export function addMovie (data, token) {
+    return new Promise((resolve, reject) => {
+        fetch(`${url}/addMovie`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(data)
+        }).then(response => {
+            if (response.status == 200) {
+                return response.json();
+            } else {
+                reject('Error al añadir la película: ' + response.statusText);
+            }
+        }).then(data => {
+            JSON.stringify(data);
+            resolve(data);
+        }).catch(error => {
+            reject(error);
+        });
+    });
+}
+
+export function updateMovie (data, token) {
+    return new Promise((resolve, reject) => {
+        fetch(`${url}/updateMovie`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(data)
+        }).then(response => {
+            if (response.status == 200) {
+                return response.json();
+            } else {
+                reject('Error al actualizar la película: ' + response.statusText);
+            }
+        }).then(data => {
+            JSON.stringify(data);
+            resolve(data);
+        }).catch(error => {
+            reject(error);
+        });
+    });
+}
+
+export function deleteMovie (id, token) {
+    return new Promise((resolve, reject) => {
+        fetch(`${url}/deleteMovie/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        }).then(response => {
+            if (response.status == 200) {
+                return response.json();
+            } else {
+                reject('Error al eliminar la película: ' + response.statusText);
+            }
+        }).then(data => {
+            JSON.stringify(data);
+            resolve(data);
+        }).catch(error => {
+            reject(error);
+        });
+    });
+}
+
+export function moviesFreeSession (token) {
+    return new Promise((resolve, reject) => {
+        fetch(`${url}/moviesFree`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        }).then(response => {
+            if (response.status == 200) {
+                return response.json();
+            } else {
+                reject('Error al obtener las películas sin función: ' + response.statusText);
+            }
+        }).then(data => {
+            JSON.stringify(data);
+            resolve(data);
+        }).catch(error => {
+            reject(error);
+        });
+    });
+}
