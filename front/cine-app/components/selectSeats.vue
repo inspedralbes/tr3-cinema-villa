@@ -11,7 +11,18 @@
                                 :class="n % 5 == 0 ? 'mr-8 my-1 ml-1' : 'mx-1 -my-1'"
                                 class="cursor-not-allowed fill-red-500"/>
                     </div>
-                    <div v-else-if="row == 'F'" class="flex flex-row items-center justify-center text-2xl">
+                    <div v-else-if="this.seatsRoomSocket.includes(`${row}-${n}`) || this.seatsRoomSocket.includes(`${row}-${n}-VIP`)" class="flex flex-row items-center justify-center text-2xl">
+                        <Seat   :id="`${row}-${n}`" 
+                                :class="n % 5 == 0 ? 'mr-8 my-1 ml-1' : 'mx-1 -my-1'"
+                                class="cursor-not-allowed fill-orange-100"/>
+                    </div>
+                    <div v-else-if="this.selectedSeats.includes(`${row}-${n}`) || this.selectedSeats.includes(`${row}-${n}-VIP`)" class="flex flex-row items-center justify-center text-2xl">
+                        <Seat   :id="`${row}-${n}`" 
+                                :class="n % 5 == 0 ? 'mr-8 my-1 ml-1' : 'mx-1 -my-1'"
+                                class="cursor-pointer fill-green-300"
+                                @click="handleSeatClick(`${row}-${n}`)"/>
+                    </div>
+                    <div v-else-if="row == 'F' && this.sessionVIP" class="flex flex-row items-center justify-center text-2xl">
                         <Seat   :id="`${row}-${n}-VIP`" 
                                 :class="n % 5 == 0 ? 'mr-8 my-1 ml-1' : 'mx-1 -my-1'"
                                 class="cursor-pointer fill-yellow-500"
@@ -35,6 +46,7 @@
 
 <script>
 import { useAppStore } from '~/store';
+import { socket } from '~/services/socket';
 
 export default {
     props: {
@@ -47,6 +59,8 @@ export default {
         return {
             rows: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'],
             selectedSeats: [],
+            seatsRoomSocket: [],
+            sessionVIP: false,
             error: '',
             errorAlert: false
         }
@@ -77,9 +91,7 @@ export default {
             const store = useAppStore();
             let seat = document.getElementById(seatId);
             // console.log(seatId);
-            if (seat.classList.contains('fill-red-500')) {
-                this.showError('Este asiento ya está ocupado');
-            } else if (this.selectedSeats.length == 10 && seat.classList.contains('fill-slate-300')) {
+            if (this.selectedSeats.length == 10 && seat.classList.contains('fill-slate-300')) {
                 this.showError('No puedes seleccionar más de 10 asientos');
             } else {
                 if (this.selectedSeats.includes(seatId)) {
@@ -87,17 +99,22 @@ export default {
                     store.setSelectedSeats(this.selectedSeats);
                     this.unselectedSeat(seat, seatId);
                     // console.log(store.selectedSeats);
+                    socket.emit('updateSeats', { room: store.id_session, seats: this.selectedSeats });
                 } else {
                     this.selectedSeats.push(seatId);
                     store.setSelectedSeats(this.selectedSeats);
                     this.selectedSeat(seat);
                     // console.log(store.selectedSeats);
+                    socket.emit('updateSeats', { room: store.id_session, seats: this.selectedSeats });
                 }
             }
         }
     },
     mounted() {
-        // console.log(this.ocuppiedSeats);
+        const store = useAppStore();
+        this.sessionVIP = store.session.vip;
+        this.selectedSeats = store.selectedSeats;
+        this.seatsRoomSocket = store.seatsRoomSocket;
     }
 }
 </script>

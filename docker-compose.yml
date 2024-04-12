@@ -5,7 +5,6 @@ services:
     build:
       context: ./back/laravel
       dockerfile: ./DockerFile
-
     container_name: laravel
     working_dir: /var/www
     volumes:
@@ -33,6 +32,22 @@ services:
       - WATCHPACK_POLLING=true
       - CHOKIDAR_USEPOLLING=true
     command: bash -c "npm install && npm run dev"
+    links:
+      - nodesocket-app
+
+  nodesocket-app:
+    build:
+      dockerfile: ./DockerFile
+      context: ./node
+    container_name: nodesocket
+    volumes:
+      - ./node:/app
+    working_dir: /app
+    command: >
+      bash -c "npm install
+      && nodemon index.js -L"
+    ports:
+      - "3727:3727"
 
   db:
     image: mysql:latest

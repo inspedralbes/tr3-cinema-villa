@@ -54,14 +54,6 @@ class MoviesController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      */
     public function show(Request $request)
@@ -79,26 +71,48 @@ class MoviesController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Movies $movies)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Movies $movies)
+    public function update(Request $request)
     {
-        //
+        // Find the movie by its id
+        $movie = Movies::where('id_movie', $request->id)->first();
+
+        if ($movie) {
+            // Update the movie with the data from the request JSON
+            $movie->update($request->all());
+            // Movie updated successfully
+            return response()->json(['message' => 'Movie updated successfully'], 200);
+        } else {
+            // Movie not found
+            return response()->json(['message' => 'Movie not found'], 404);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Movies $movies)
+    public function destroy($id)
     {
-        //
+        // Find the movie by its id
+        $movie = Movies::where('id_movie', $id)->first();
+
+        if ($movie) {
+            // Delete the movie
+            $movie->delete();
+            // Movie deleted successfully
+            return response()->json(['message' => 'Movie deleted successfully'], 200);
+        } else {
+            // Movie not found
+            return response()->json(['message' => 'Movie not found'], 404);
+        }
+    
+    }
+
+    public function movieWithoutSession()
+    {
+        $movies = Movies::doesntHave('sessions')->get(['id_movie', 'title']);
+
+        return response()->json($movies);
     }
 }

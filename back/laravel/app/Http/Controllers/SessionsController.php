@@ -52,6 +52,9 @@ class SessionsController extends Controller
             $session["priceBase"] = $fildsets["priceBase"];
         }
         
+        if (isset($fields['vip'])) {
+            $session["vip"] = $fildsets["vip"];
+        }
 
         if ($session->save()) {
             // Session saved successfully
@@ -60,14 +63,6 @@ class SessionsController extends Controller
             // Failed to save the session
             return response()->json(['message' => 'Failed to create the NEW Session'], 500);
         }
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -99,26 +94,62 @@ class SessionsController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Sessions $sessions)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Sessions $sessions)
+    public function update(Request $request)
     {
-        //
+        $fildsets = $request->validate([
+            'day' => 'required',
+            'hour' => 'required',
+            'movie_id'=> 'required',
+            'audienceDay' => 'boolean',
+            'priceBase' => 'decimal',
+        ]);
+
+        $session = Sessions::where('id_session', $request->id)->first();
+
+        $session->day = $fildsets["day"];
+        $session->hour = $fildsets["hour"];
+        $session->movie_id = $fildsets["movie_id"];
+
+        if ($fildsets["audienceDay"] && !$fildsets["priceBase"]) {
+            $session->audienceDay = $fildsets["audienceDay"];
+            $session->priceBase = 4.00;
+        } else if ($fildsets["priceBase"] && !$fildsets["audienceDay"]) {
+            $session->priceBase = $fildsets["priceBase"];
+        } else if ($fildsets["audienceDay"] && $fildsets["priceBase"]) {
+            $session->audienceDay = $fildsets["audienceDay"];
+            $session->priceBase = $fildsets["priceBase"];
+        }
+
+        if (isset($fields['vip'])) {
+            $session->vip = $fildsets["vip"];
+        }
+
+        if ($session->save()) {
+            // Session updated successfully
+            return response()->json(['message' => 'Session updated successfully'], 200);
+        } else {
+            // Failed to update the session
+            return response()->json(['message' => 'Failed to update the session'], 500);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Sessions $sessions)
+    public function destroy($id)
     {
-        //
+        $session = Sessions::find($id);
+        if (!$session) {
+            return response()->json(['message' => 'Session not found'], 404);
+        }
+        if ($session->delete()) {
+            // Session deleted successfully
+            return response()->json(['message' => 'Session deleted successfully'], 200);
+        } else {
+            // Failed to delete the session
+            return response()->json(['message' => 'Failed to delete the session'], 500);
+        }
     }
 }

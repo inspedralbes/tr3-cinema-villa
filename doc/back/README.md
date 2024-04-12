@@ -27,28 +27,6 @@ http://localhost:8000/api/entradas/validate (POST)
     "email": "cliente@example.com"
 }
 
-## Respuesta
-[
-  {
-    "session_id": 1,
-    "seat": "A-2",
-    "price": "4.00",
-    "email": "cliente@example.com",
-    "first_name": "Juan",
-    "last_name": "González",
-    "phone_number": "123456789"
-  },
-  {
-    "session_id": 1,
-    "seat": "L-2-VIP",
-    "price": "6.00",
-    "email": "cliente@example.com",
-    "first_name": "Juan",
-    "last_name": "González",
-    "phone_number": "123456789"
-  }
-]
-
 # API: JSON para buscar entradas de cliente con email 
 http://localhost:8000/api/entradas/searchEmail (POST)
 {
@@ -111,6 +89,46 @@ http://localhost:8000/api/entradas/searchIdEmail (POST)
   "id": 1,
   "email": "cliente@example.com"
 }
+
+## Respuesta
+[
+  {
+    "session_id": 1,
+    "seat": "A-1",
+    "price": "4.00",
+    "email": "client1@gmail.com",
+    "first_name": "Client",
+    "last_name": "One",
+    "phone_number": "123456789"
+  },
+  {
+    "session_id": 1,
+    "seat": "A-2",
+    "price": "4.00",
+    "email": "client1@gmail.com",
+    "first_name": "Client",
+    "last_name": "One",
+    "phone_number": "123456789"
+  },
+  {
+    "session_id": 1,
+    "seat": "A-3",
+    "price": "4.00",
+    "email": "client1@gmail.com",
+    "first_name": "Client",
+    "last_name": "One",
+    "phone_number": "123456789"
+  },
+  {
+    "session_id": 1,
+    "seat": "A-4",
+    "price": "4.00",
+    "email": "client1@gmail.com",
+    "first_name": "Client",
+    "last_name": "One",
+    "phone_number": "123456789"
+  }
+]
 
 # API: Respuesta para saber que asientos estan ocupados en una session 
 http://localhost:8000/api/session/1/entradas (GET)
