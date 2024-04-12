@@ -18,7 +18,7 @@ const io = new Server(server, {
 });
 
 io.on('connection', (socket) => {
-    console.log(`user conectado ${socket.id}`);
+    // console.log(`user conectado ${socket.id}`);
 
     socket.on('connectToRoom', (room) => {
         // console.log('conectado a la sala', room);
@@ -39,15 +39,15 @@ io.on('connection', (socket) => {
     });
 
     socket.on('exitFromRoom', (room) => {
-        console.log(`Usuario ${socket.id} saliendo de la sala ${room}`, roomsList[room]);
+        // console.log(`Usuario ${socket.id} saliendo de la sala ${room}`, roomsList[room]);
         if (socket.rooms.has(room)) {
             socket.leave(room);
             if (roomsList[room]) {
                 roomsList[room] = roomsList[room].filter(user => user['socket_id'] != socket.id);
             }
-            console.log('Lista de usuarios en la sala:', roomsList[room]);
+            // console.log('Lista de usuarios en la sala:', roomsList[room]);
         } else {
-            console.log('El socket no está unido a la sala ', room);
+            // console.log('El socket no está unido a la sala ', room);
         }
     });
 
@@ -65,14 +65,14 @@ io.on('connection', (socket) => {
         roomsUserEstate.forEach(room => {
             io.to(room).emit('updateSeatsRoom', roomsList[room]);
         });
-        console.log('user desconectado ' + socket.id);
+        // console.log('user desconectado ' + socket.id);
     });
     
 
     // socket.on('disconnect', () => {
     //     let roomsUserEstate = [];
     //     roomsList.forEach((room) => {
-    //         console.log(room);
+    //         // console.log(room);
     //         if (room.array == room.array.filter(user => user['socket_id'] != socket.id)) {   
     //             roomsUserEstate.push(room);
     //         }
@@ -81,14 +81,14 @@ io.on('connection', (socket) => {
     //         //     room.splice(userToErase, 1);
     //         // });
     //     });
-    //     console.log(roomsList);
+    //     // console.log(roomsList);
     //     for (let i = 0; i < roomsUserEstate.length; i++) {
     //         io.to(roomsUserEstate[i]).emit('updateSeatsRoom', roomsList[roomsUserEstate[i]]);
     //     }
-    //     console.log('user desconectado ' + socket.id);
+    //     // console.log('user desconectado ' + socket.id);
     // });
 })
 
 server.listen(port, () => {
-    console.log(`Server running on port ${port}`)
+    // console.log(`Server running on port ${port}`)
 })

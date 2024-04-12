@@ -119,7 +119,7 @@ export default {
         postLoginForm() {
             const store = useAppStore();
             // Agrega aquí la lógica para iniciar sesión
-            console.log('Iniciar sesión con usuario:', this.email, 'y contraseña:', this.password);
+            // console.log('Iniciar sesión con usuario:', this.email, 'y contraseña:', this.password);
             if (this.email == '' || this.password == '') {
                 this.showError('Por favor, llena todos los campos');
             } else {
@@ -129,7 +129,7 @@ export default {
                     password_confirmation: this.password
                 };
                 postLogin(user).then(response => {
-                    console.log('Respuesta del servidor:', response);
+                    // console.log('Respuesta del servidor:', response);
                     store.setUser(response.user);
                     store.setToken(response.token);
                     this.$router.push('/');
@@ -141,7 +141,7 @@ export default {
         postRegisterForm() {
             const store = useAppStore();
             // Agrega aquí la lógica para el registro
-            console.log('Registro con:', this.firstName, this.lastName, this.phoneNumber, this.email, this.password, this.passwordConfirmation);
+            // console.log('Registro con:', this.firstName, this.lastName, this.phoneNumber, this.email, this.password, this.passwordConfirmation);
             if (this.firstName == '' || this.lastName == '' || this.phoneNumber == '' || this.email == '' || this.password == '' || this.passwordConfirmation == '') {
                 this.showError('Por favor, llena todos los campos');
             } else {
@@ -154,7 +154,7 @@ export default {
                     password_confirmation: this.passwordConfirmation
                 };
                 postRegister(user).then((response) => {
-                    console.log('Respuesta del servidor:', response);
+                    // console.log('Respuesta del servidor:', response);
                     store.setUser(response.user);
                     store.setToken(response.token);
                     this.$router.push('/');                 

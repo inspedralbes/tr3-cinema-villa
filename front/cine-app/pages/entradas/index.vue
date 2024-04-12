@@ -56,7 +56,7 @@ export default {
                     email: this.email
                 }
                 getEntradasWithEmailSession(data, store.token).then((response) => {
-                    console.log(response);
+                    // console.log(response);
                     this.tickets1 = response;
                     this.showTickets1 = true;
                 });
@@ -66,7 +66,7 @@ export default {
                     email: this.email2
                 }
                 getEntradasWithEmail(data, store.token).then((response) => {
-                    console.log(response);
+                    // console.log(response);
                     this.tickets2 = response;
                     this.showTickets2 = true;
                 });

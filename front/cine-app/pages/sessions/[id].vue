@@ -148,11 +148,11 @@ export default {
                 this.showError('Faltan datos para completar la compra');
             } else {
                 postValidateEmail(dataValidateEmail).then(responseValidateEmail => {
-                    console.log('Respuesta de la validación de correo electrónico:', responseValidateEmail);
+                    // console.log('Respuesta de la validación de correo electrónico:', responseValidateEmail);
                     if (responseValidateEmail.comprar == 'True') {
                         // Si se puede comprar, entonces realizar la compra de entradas
                         postBuyEntradas(data).then(responseBuyEntradas => {
-                            console.log('Respuesta de la compra de entradas:', responseBuyEntradas);
+                            // console.log('Respuesta de la compra de entradas:', responseBuyEntradas);
                             socket.emit('exitFromRoom', store.id_session);
                             this.showForm = false;
                             this.showResumen = false;
@@ -189,7 +189,7 @@ export default {
             //Buscar los asientos ocupados
             getOccupiedSeats(store.id_session).then((response) => {
                 if (response.message) {
-                    console.log(response.message);
+                    // console.log(response.message);
                 } else {
                     this.ocuppiedSeats = response;
                     store.setOccupiedSeats(this.ocuppiedSeats);
@@ -216,7 +216,7 @@ export default {
             }
             store.setSeatsRoomSocket(seats);
             this.seatsRoomSocket = seats;
-            console.log(seats);
+            // console.log(seats);
             this.componentSeatsKey++;
         });
 
