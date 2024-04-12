@@ -12,12 +12,12 @@
             <div class="bg-white p-4 rounded-lg shadow-md my-4 mt-9 w-2/3 hover:bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% hover:text-white">
                 <h4 class="text-xl font-semibold">Películas</h4>
                 <p class="mt-2">Gestiona las películas que se proyectarán en el cine.</p>
-                <nuxt-link to="/admin/movies" class="block mt-4 text-blue-500">Ir a películas</nuxt-link>
+                <nuxt-link to="/admin/" class="block mt-4 text-blue-500">Ir a películas</nuxt-link>
             </div>
             <div class="bg-white p-4 rounded-lg shadow-md my-4 w-2/3 hover:bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% hover:text-white">
                 <h4 class="text-xl font-semibold">Sesiones</h4>
                 <p class="mt-2">Gestiona las sesiones de las películas.</p>
-                <nuxt-link to="/admin/sessions" class="block mt-4 text-blue-500">Ir a sesiones</nuxt-link>
+                <nuxt-link to="/admin/" class="block mt-4 text-blue-500">Ir a sesiones</nuxt-link>
             </div>
         </div>  
     </div>
