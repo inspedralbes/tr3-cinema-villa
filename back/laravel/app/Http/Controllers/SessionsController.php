@@ -58,7 +58,7 @@ class SessionsController extends Controller
 
         if ($session->save()) {
             // Session saved successfully
-            return response()->json(['message' => 'NEW Session created successfully'], 201);
+            return response()->json(['message' => 'NEW Session created successfully'], 200);
         } else {
             // Failed to save the session
             return response()->json(['message' => 'Failed to create the NEW Session'], 500);

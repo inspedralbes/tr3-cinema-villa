@@ -233,3 +233,45 @@ Tambien necesita el TOKEN de autenticación
 {
   "message": "Movie deleted successfully"
 }
+
+# API: JSON para obtener todas las pelis sin sesiones
+http://localhost:8000/api/moviesFree (GET)
+## Respuesta
+[
+  {
+    "id_movie": 2,
+    "title": "Finding Nemo"
+  },
+  {
+    "id_movie": 4,
+    "title": "Monsters, Inc."
+  },
+  {
+    "id_movie": 7,
+    "title": "Frozen"
+  },
+  {
+    "id_movie": 9,
+    "title": "Zootopia"
+  },
+  {
+    "id_movie": 10,
+    "title": "Moana"
+  },
+  {
+    "id_movie": 11,
+    "title": "Toy Story 4"
+  },
+  {
+    "id_movie": 13,
+    "title": "Finding Dory"
+  },
+  {
+    "id_movie": 15,
+    "title": "Ratatouille"
+  },
+  {
+    "id_movie": 18,
+    "title": "Luca"
+  }
+]

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Movies;
+use App\Models\Sessions;
 use Illuminate\Http\Request;
 
 class MoviesController extends Controller
@@ -112,9 +113,10 @@ class MoviesController extends Controller
     
     }
 
-    public function movieWithoutSession()
+    public function moviesWithoutSession()
     {
-        $movies = Movies::doesntHave('sessions')->get(['id_movie', 'title']);
+        $movie_sessions = Sessions::pluck('movie_id');
+        $movies = Movies::whereNotIn('id_movie', $movie_sessions)->get(['id_movie', 'title']);
 
         return response()->json($movies);
     }
