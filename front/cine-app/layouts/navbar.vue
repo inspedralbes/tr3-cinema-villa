@@ -18,11 +18,11 @@
       <div :class="menuClasses">
         <nuxt-link to="/" class="text-white block mt-4 lg:inline-block lg:mt-0 mr-4">Cartelera</nuxt-link>
         <nuxt-link to="/sessions/" class="text-white block mt-4 lg:inline-block lg:mt-0 mr-4">Sesiones</nuxt-link>
-        <nuxt-link v-if="!userExist" to="/accesUser" class="text-white block mt-4 lg:inline-block lg:mt-0 mr-4">Login</nuxt-link>
+        <nuxt-link v-if="!userExist" to="/accesUser" class="text-white block mt-4 lg:inline-block lg:mt-0 mr-4">Entrar cuenta</nuxt-link>
         <div v-else>
           <nuxt-link to="/entradas/" class="text-white cursor-pointer block mt-4 lg:inline-block lg:mt-0 mr-4">Mis Compras</nuxt-link>
           <nuxt-link v-if="userAdmin" to="/admin/" class="text-white cursor-pointer block mt-4 lg:inline-block lg:mt-0 mr-4">Administración</nuxt-link>
-          <nuxt-link @click="postLogoutFetch()" class="text-white cursor-pointer block mt-4 lg:inline-block lg:mt-0">Logout</nuxt-link>
+          <nuxt-link @click="postLogoutFetch()" class="text-white cursor-pointer block mt-4 lg:inline-block lg:mt-0">Cerrar Sesión</nuxt-link>
         </div>
       </div>
     </div>

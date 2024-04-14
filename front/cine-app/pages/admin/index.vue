@@ -22,3 +22,21 @@
         </div>  
     </div>
 </template>
+
+<script>
+import { useAppStore } from '~/store';
+export default {
+    data() {
+        return {
+            
+        }
+    }, mounted() {
+        const store = useAppStore();
+        console.log('Admin page mounted');
+
+        if (store.user?.type != 1) {
+            this.$router.push('/');
+        }
+    },
+}
+</script>
