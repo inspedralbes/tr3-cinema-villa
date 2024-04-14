@@ -146,3 +146,90 @@ http://localhost:8000/api/session/1/entradas (GET)
   "B-1-VIP",
   "K-3"
 ]
+
+# API: JSON para crear sesiones 
+http://localhost:8000/api/addSession (POST)
+Tambien necesita el TOKEN de autenticación
+audience price y vip son opcionales
+{
+    "day": "2024-05-15",
+    "hour": "18:00",
+    "movie_id": 2,
+    "audienceDay": true,
+    "priceBase": 6.50,
+    "vip": true
+}
+## Respuesta
+{
+  "message": "NEW Session created successfully"
+}
+
+# API: JSON para crear peliculas
+http://localhost:8000/api/addMovie (POST)
+{
+    "image": "https://example.com/movie_image.jpg",
+    "title": "The Movie Title",
+    "director": "John Doe",
+    "actors": ["Actor 1", "Actor 2", "Actor 3"],
+    "sinopsis": "A brief summary of the movie plot.",
+    "duration": "120",
+    "premiere": "2024-04-15",
+    "genre": "Action",
+    "classification": "PG-13"
+}
+## Respuesta
+{
+  "message": "Movie created successfully"
+}
+
+# API: JSON para actualizar sesiones
+http://localhost:8000/api/updateSession (POST)
+Tambien necesita el TOKEN de autenticación
+{
+    "id": 11,
+    "day": "2024-08-23",
+    "hour": "18:00",
+    "movie_id": 2,
+    "audienceDay": true,
+    "priceBase": 17.50,
+    "vip": true
+}
+## Respuesta
+{
+  "message": "Session updated successfully"
+}
+
+# API: JSON para actualizar peliculas
+http://localhost:8000/api/updateMovie (POST)
+{
+    "id": 19,
+    "image": "https://example.com/movie_image.jpg",
+    "title": "The peli caca Title",
+    "director": "John Dodasdasdasdae",
+    "actors": ["Actor 1", "Actor 2", "Actor 3"],
+    "sinopsis": "A laslaslalslalslalsldaq.",
+    "duration": "120 minutos",
+    "premiere": "2024-04-15",
+    "genre": "Action",
+    "classification": "PG-13"
+}
+## Respuesta
+{
+  "message": "Movie updated successfully"
+}
+
+# API: JSON para eliminar sesiones
+http://localhost:8000/api/deleteSession/11 (GET)
+Tambien necesita el TOKEN de autenticación
+## Respuesta
+{
+  "message": "Session deleted successfully"
+}
+
+# API: JSON para eliminar peliculas
+http://localhost:8000/api/deleteMovie/19 (GET)
+Tambien necesita el TOKEN de autenticación
+## Respuesta
+{
+  "message": "Movie deleted successfully"
+}

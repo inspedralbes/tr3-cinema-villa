@@ -42,8 +42,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/addMovie', [MoviesController::class,'create']);
     Route::post('/updateSession', [SessionsController::class,'update']);
     Route::post('/updateMovie', [MoviesController::class,'update']);
-    Route::post('/deleteSession/{id}', [SessionsController::class,'destroy']);
-    Route::post('/deleteMovie/{id}', [MoviesController::class,'destroy']);
+    Route::get('/deleteSession/{id}', [SessionsController::class,'destroy']);
+    Route::get('/deleteMovie/{id}', [MoviesController::class,'destroy']);
     Route::get('/moviesFree', [MoviesController::class, 'moviesWithoutSession']);
     //Buscadores de entradas
     Route::post('/entradas/searchIdEmail', [EntradaController::class, 'showWithEmailIdSession']);

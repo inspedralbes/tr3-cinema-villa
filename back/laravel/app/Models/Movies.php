@@ -20,4 +20,8 @@ class Movies extends Model
         "genre",
         "classification"
     ];
+
+    public $timestamps = false;
+
+    protected $primaryKey = 'id_movie';
 }

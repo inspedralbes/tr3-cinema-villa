@@ -27,7 +27,10 @@ class MoviesController extends Controller
             'image' => 'required|unique:movies',
             'title' => 'required|unique:movies',
             'director' => 'required',
+            'actors' => 'array',
             'sinopsis' => 'required',
+            'premiere' => 'date',
+            'genre' => 'string',
             'duration' => 'required',
             'classification' => 'required'
         ]);
@@ -37,9 +40,9 @@ class MoviesController extends Controller
         $movie["image"] = $fildsets["image"];
         $movie["title"] = $fildsets["title"];
         $movie["director"] = $fildsets["director"];
-        $movie["actors"] = $fildsets["actors"];
+        $movie["actors"] = json_encode($fildsets["actors"]);
         $movie["sinopsis"] = $fildsets["sinopsis"];
-        $movie["duration"] = $fildsets["duration"];
+        $movie["duration"] = $fildsets["duration"] + " minutos";
         $movie["premiere"] = $fildsets["premiere"];
         $movie["genre"] = $fildsets["genre"];
         $movie["classification"] = $fildsets["classification"];

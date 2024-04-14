@@ -27,7 +27,7 @@ class SessionsController extends Controller
             'hour' => 'required',
             'movie_id'=> 'required',
             'audienceDay' => 'boolean',
-            'priceBase' => 'decimal',
+            'priceBase' => 'numeric',
         ]);
         
         if (Sessions::where('day', $fildsets["day"])->exists()) {
@@ -103,7 +103,7 @@ class SessionsController extends Controller
             'hour' => 'required',
             'movie_id'=> 'required',
             'audienceDay' => 'boolean',
-            'priceBase' => 'decimal',
+            'priceBase' => 'numeric',
         ]);
 
         $session = Sessions::where('id_session', $request->id)->first();
