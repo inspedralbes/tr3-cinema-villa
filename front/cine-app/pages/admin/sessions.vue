@@ -102,7 +102,7 @@
     </div>
 
     <div v-show="succesAlert">
-        <SuccesPopup :succes="this.succes" />
+        <SuccesPopup :success="this.succes" />
     </div>
 
 </template>

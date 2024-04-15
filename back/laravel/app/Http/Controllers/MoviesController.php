@@ -14,7 +14,7 @@ class MoviesController extends Controller
     public function index()
     {
         // Get all movies (id, title, image) from the database
-        $movies = Movies::all(['id_movie', 'title', 'image']);
+        $movies = Movies::all();
 
         return response()->json($movies);
     }
@@ -25,7 +25,7 @@ class MoviesController extends Controller
     public function create(Request $request)
     {
         $fildsets = $request->validate([
-            'image' => 'required|unique:movies',
+            'image' => 'unique:movies',
             'title' => 'required|unique:movies',
             'director' => 'required',
             'actors' => 'array',
@@ -50,7 +50,7 @@ class MoviesController extends Controller
 
         if ($movie->save()) {
             // Movie saved successfully
-            return response()->json(['message' => 'Movie created successfully'], 201);
+            return response()->json(['message' => 'Movie created successfully'], 200);
         } else {
             // Failed to save the movie
             return response()->json(['message' => 'Failed to create the movie'], 500);
