@@ -3,7 +3,7 @@
     <div class="bg-blue-950 py-8">
         <div class="container mx-auto">
             <h2 class="text-6xl font-semibold tracking-wider text-center text-white py-2">Apartado de administradores</h2>
-            <p class="mt-4 py-3 text-xl text-center text-slate-300">Gestiona las sessiones a tu manera...</p>
+            <p class="mt-4 py-3 text-xl text-center text-slate-300">Gestiona las sesiones a tu manera...</p>
         </div>
     </div>
     <div class="container mx-auto text-center mb-9">
@@ -22,3 +22,20 @@
         </div>  
     </div>
 </template>
+
+<script>
+import { useAppStore } from '~/store';
+export default {
+    data() {
+        return {
+            
+        }
+    }, mounted() {
+        const store = useAppStore();
+        console.log('Admin page mounted');
+        if (store.user?.type != 1) {
+            this.$router.push('/');
+        }
+    },
+}
+</script>

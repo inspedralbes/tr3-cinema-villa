@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Movies;
+use App\Models\Sessions;
 use Illuminate\Http\Request;
 
 class MoviesController extends Controller
@@ -13,7 +14,7 @@ class MoviesController extends Controller
     public function index()
     {
         // Get all movies (id, title, image) from the database
-        $movies = Movies::all(['id_movie', 'title', 'image']);
+        $movies = Movies::all();
 
         return response()->json($movies);
     }
@@ -24,10 +25,13 @@ class MoviesController extends Controller
     public function create(Request $request)
     {
         $fildsets = $request->validate([
-            'image' => 'required|unique:movies',
+            'image' => 'unique:movies',
             'title' => 'required|unique:movies',
             'director' => 'required',
+            'actors' => 'array',
             'sinopsis' => 'required',
+            'premiere' => 'date',
+            'genre' => 'string',
             'duration' => 'required',
             'classification' => 'required'
         ]);
@@ -37,16 +41,16 @@ class MoviesController extends Controller
         $movie["image"] = $fildsets["image"];
         $movie["title"] = $fildsets["title"];
         $movie["director"] = $fildsets["director"];
-        $movie["actors"] = $fildsets["actors"];
+        $movie["actors"] = json_encode($fildsets["actors"]);
         $movie["sinopsis"] = $fildsets["sinopsis"];
-        $movie["duration"] = $fildsets["duration"];
+        $movie["duration"] = $fildsets["duration"] + " minutos";
         $movie["premiere"] = $fildsets["premiere"];
         $movie["genre"] = $fildsets["genre"];
         $movie["classification"] = $fildsets["classification"];
 
         if ($movie->save()) {
             // Movie saved successfully
-            return response()->json(['message' => 'Movie created successfully'], 201);
+            return response()->json(['message' => 'Movie created successfully'], 200);
         } else {
             // Failed to save the movie
             return response()->json(['message' => 'Failed to create the movie'], 500);
@@ -109,9 +113,10 @@ class MoviesController extends Controller
     
     }
 
-    public function movieWithoutSession()
+    public function moviesWithoutSession()
     {
-        $movies = Movies::doesntHave('sessions')->get(['id_movie', 'title']);
+        $movie_sessions = Sessions::pluck('movie_id');
+        $movies = Movies::whereNotIn('id_movie', $movie_sessions)->get(['id_movie', 'title']);
 
         return response()->json($movies);
     }

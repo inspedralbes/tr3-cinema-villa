@@ -298,7 +298,7 @@ export function addSession (data, token) {
 export function updateSession (data, token) {
     return new Promise((resolve, reject) => {
         fetch(`${url}/updateSession`, {
-            method: 'PUT',
+        method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
@@ -369,7 +369,7 @@ export function addMovie (data, token) {
 export function updateMovie (data, token) {
     return new Promise((resolve, reject) => {
         fetch(`${url}/updateMovie`, {
-            method: 'PUT',
+        method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`

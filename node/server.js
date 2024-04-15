@@ -26,6 +26,7 @@ io.on('connection', (socket) => {
         roomsList[room] = roomsList[room] ? roomsList[room] : [];
         roomsList[room].push({'socket_id': socket.id, 'seats': []});
         // console.log(roomsList);
+        io.to(room).emit('updateSeatsRoom', roomsList[room]);
     });
 
     socket.on('updateSeats', (data) => {

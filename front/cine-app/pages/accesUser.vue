@@ -23,7 +23,7 @@
                     </div>
                     <div class="flex flex-col items-center justify-center">
                         <button
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-150 ease-in-out hover:scale-110"
                             @click="postLoginForm()">
                             Iniciar Sesión
                         </button>
@@ -74,7 +74,7 @@
                     </div>
                     <div class="flex flex-col items-center justify-center">
                         <button
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-150 ease-in-out hover:scale-110"
                             @click="postRegisterForm()">Registrarse</button>
                         <p class="text-gray-700 text-sm mt-4">¿Ya tienes una cuenta? <a href="#"
                                 @click="showRegister = false" class="text-blue-500">Inicia sesión</a>.</p>
@@ -86,7 +86,6 @@
             <ErrorPopup :error="this.error"/>
         </div>
     </div>
-    
 </template>
 
 <script>
@@ -166,7 +165,3 @@ export default {
     }
 }
 </script>
-
-<style>
-/* Agrega estilos adicionales si es necesario */
-</style>
